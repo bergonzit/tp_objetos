@@ -1,8 +1,8 @@
 class Criatura {
   var nombre
-  var vida
+  var property vida
   var vidaMax
-  var energia
+  var property energia
   var energiaMax
   var velocidad
   var movimientos //Lista de movimientos [4?]
@@ -22,7 +22,7 @@ class Koi inherits Criatura
  sprite = null,
  tipo = null
  ){
-    
+
 }
 
 object run {
