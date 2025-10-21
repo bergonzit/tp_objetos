@@ -1,3 +1,4 @@
+import tipos.*
 class Criatura {
   var nombre
   var property vida
@@ -20,7 +21,7 @@ class Koi inherits Criatura
  velocidad = 50,
  movimientos = null,
  sprite = null,
- tipo = null
+ tipo = normal
  ){
 
 }
