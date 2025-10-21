@@ -7,6 +7,10 @@ class Tipo {
   method obtenerMult(valor) {
     return if (valor == "Fuego") multFuego else if (valor == "Agua") multAgua else if (valor == "Planta") multPlanta else 1
   }
+
+  method getNombre(){
+    return nombre
+  }
 }
 
 object fuego inherits Tipo(nombre = "Fuego", multFuego = 1, multAgua = 0.5, multPlanta = 2) {}
