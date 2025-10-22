@@ -49,6 +49,12 @@ class Koi inherits Criatura
 
 }
 
-object run {
-  
-}
+class Laoc inherits Criatura 
+(nombre = "Laoc",
+ vidaMax = 150, vida = vidaMax,
+ energiaMax = 300, energia = energiaMax,
+ velocidad = 70,
+ movimientos = null,
+ sprite = "Laoc.png",
+ tipo = fuego
+ ){}
