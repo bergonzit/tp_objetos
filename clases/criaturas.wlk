@@ -45,26 +45,32 @@ class Criatura {
 
 } 
 
-//Aca armo un ejemplo de una criatura con herencia
-
-class Koi inherits Criatura 
-(nombre = "Koi",
- vidaMax = 100, vida = vidaMax,
- energiaMax = 100, energia = energiaMax,
- velocidad = 50,
- movimientos = null,
- sprite = null,
- tipo = normal
- ){
-
-}
-
 class Laoc inherits Criatura 
 (nombre = "Laoc",
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
  velocidad = 70,
  movimientos = null,
- sprite = "Laoc.png",
+ sprite = "Laoc128.png",
  tipo = fuego
+ ){}
+
+class Seedy inherits Criatura 
+(nombre = "Seedy",
+ vidaMax = 160, vida = vidaMax,
+ energiaMax = 280, energia = energiaMax,
+ velocidad = 65,
+ movimientos = null,
+ sprite = "Seedy128.png",
+ tipo = planta
+ ){}
+
+ class Lacui inherits Criatura 
+(nombre = "Lacui",
+ vidaMax = 140, vida = vidaMax,
+ energiaMax = 320, energia = energiaMax,
+ velocidad = 75,
+ movimientos = null,
+ sprite = "Lacui128.png",
+ tipo = agua
  ){}
