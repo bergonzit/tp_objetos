@@ -6,11 +6,20 @@ class Movimiento {
     var tipo
     
 
-    method accion(criaturaAtacante, criaturaRecibe) {
-        if (criaturaAtacante.energia() >= costo) {
-            criaturaAtacante.energia(criaturaAtacante.energia() - costo)
-            criaturaAtacante.sacarVida(poder * tipo.obtenerMult(criaturaRecibe.tipo()))
-        
-        } 
+    method accion(criaturaAtacante, criaturaObjetivo) {
+        criaturaAtacante.energia(criaturaAtacante.energia() - costo)
+        criaturaObjetivo.sacarVida(poder * tipo.obtenerMult(criaturaObjetivo.tipo()))
+    }
+
+    method costoEnergia() {
+        return costo
     }
 }
+
+const placaje = new Movimiento(
+    nombre = "Placaje",
+    costo = 10,
+    poder = 15,
+    tipo = normal
+)
+

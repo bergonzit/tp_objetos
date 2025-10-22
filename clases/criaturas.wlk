@@ -33,6 +33,16 @@ class Criatura {
   method estaViva() {
     return vida > 0
   }
+
+  
+  method atacar(movimiento, criaturaObjetivo) {
+    if (energia >= movimiento.costoEnergia()) {
+          movimiento.accion(self, criaturaObjetivo)
+        } 
+    
+    }
+
+
 } 
 
 //Aca armo un ejemplo de una criatura con herencia
