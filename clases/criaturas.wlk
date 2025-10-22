@@ -11,6 +11,28 @@ class Criatura {
   var sprite //Dibujo de la criatura
   var tipo //En teoria los tipos se hacen con otra clase
 
+
+  method tipo() {
+    return tipo
+    }
+
+  method sacarVida(cantidad) {
+    vida = vida - cantidad
+    if (vida < 0) {
+      vida = 0
+      }
+    }
+
+  method restarEnergia(cantidad) {
+      energia = energia - cantidad
+      if (energia < 0) {
+        energia = 0
+      }
+    }
+
+  method estaViva() {
+    return vida > 0
+  }
 } 
 
 //Aca armo un ejemplo de una criatura con herencia
