@@ -1,0 +1,16 @@
+import wollok.game.*
+
+import clases.gestorPantallas.gestorPantallas
+
+
+program Game {
+	//Configuración del juego
+	game.title("Game")
+	game.height(50)
+	game.width(50)
+	game.cellSize(10)
+
+	game.addVisual(gestorPantallas)
+	gestorPantallas.run()
+	game.start()
+}

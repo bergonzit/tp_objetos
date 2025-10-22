@@ -1,4 +1,5 @@
 import tipos.*
+
 class Criatura {
   var nombre
   var property vida
