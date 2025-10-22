@@ -7,7 +7,7 @@ class Movimiento {
     
 
     method accion(criaturaAtacante, criaturaObjetivo) {
-        criaturaAtacante.energia(criaturaAtacante.energia() - costo)
+        criaturaAtacante.restarEnergia(costo)
         criaturaObjetivo.sacarVida(poder * tipo.obtenerMult(criaturaObjetivo.tipo()))
     }
 
