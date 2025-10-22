@@ -26,10 +26,6 @@ object botonAux inherits Boton(){
     }
 }
 
-const prueba = new Boton(){
-    override method press(){
-        game.say(self, "Soy un Boton")
-    }
-}
+
 
 
