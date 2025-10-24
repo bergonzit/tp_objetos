@@ -6,9 +6,9 @@ import clases.gestorPantallas.gestorPantallas
 program Game {
 	//Configuración del juego
 	game.title("Game")
-	game.height(50)
-	game.width(50)
-	game.cellSize(10)
+	game.height(60)
+	game.width(70)
+	game.cellSize(8)
 	game.addVisual(gestorPantallas)
 	gestorPantallas.run()
 	

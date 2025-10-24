@@ -9,6 +9,7 @@ object pantallaSeleccionCriatura{
         self.colocarBotones()
         game.addVisual(seleccion)
         seleccion.habilitarSeleccion()
+        
     }
     method colocarBotones(){
         var y = 41
@@ -62,10 +63,13 @@ object seleccion{
         posicion = posiciones.get(index)
     }
     method mover(valor) {
-      if (index + valor >= 0 && index + valor < posiciones.size()){
         index += valor
+        if(index < 0) {
+            index = 0
+        } else if (index > posiciones.size() - 1 ){ //Sacar el -1 cuando termine el botonBatalla
+            index = posiciones.size() -1
+        }
         posicion = posiciones.get(index)
-      }
     }
 }
 
