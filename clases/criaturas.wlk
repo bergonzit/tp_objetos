@@ -9,25 +9,16 @@ class Criatura {
   var velocidad
   var movimientos //Lista de movimientos [4?]
   var sprite //Dibujo de la criatura
-  var tipo //En teoria los tipos se hacen con otra clase
+  var property tipo //En teoria los tipos se hacen con otra clase
 
-
-  method tipo() {
-    return tipo
-    }
+  method tomarValorMayorEntreCeroYoOtro(valorAComparar) = valorAComparar.max(0)
 
   method sacarVida(cantidad) {
-    vida = vida - cantidad
-    if (vida < 0) {
-      vida = 0
-      }
+    vida = self.tomarValorMayorEntreCeroYoOtro(vida - cantidad)
     }
 
   method restarEnergia(cantidad) {
-      energia = energia - cantidad
-      if (energia < 0) {
-        energia = 0
-      }
+      energia = self.tomarValorMayorEntreCeroYoOtro(energia - cantidad)
     }
 
   method estaViva() {
