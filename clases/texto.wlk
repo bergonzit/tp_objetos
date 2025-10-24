@@ -5,29 +5,39 @@ class Texto{
     var diccionario = new Dictionary()
     const desplazamientoPromedio = 4
     const desplazamientoEspacio = 3
-    var posicion 
-    
+    var posicion
+    //Variables para metodos
+    var x = 0
+    var y = 0
+    var index = 0
     
 
     method mostrarTexto(){
         self.limpiarTexto()
-        var x = 0
-        var y = 0
-        var index = 0
-        var textos = texto.split(" ")
-        textos.forEach({texto =>
-            if (texto.size() * desplazamientoPromedio + x > largo){
+        x = 0
+        y = 0
+        index = 0
+        self.separarPalabras(texto.split(" "))
+    }
+    method separarPalabras(textos){
+        textos.forEach({text =>
+            //Si puede superar el limite, cambia de linea
+            if (text.size() * desplazamientoPromedio + x > largo){
                 y -= 8
                 x = 0
             }
-            texto.split("").forEach({caracter => 
-                caracteres.add(new Caracter(imagen = diccionario.get(caracter).get(0), posicion = game.at(posicion.x() + x,posicion.y() + y - diccionario.get(caracter).get(2))))
-                game.addVisual(caracteres.get(index))
-                x += diccionario.get(caracter).get(1)
-                index += 1
-            })
+            self.separarCaracteres(text)
             x += desplazamientoEspacio
         })
+    }
+    method separarCaracteres(text){
+        text.split("").forEach({caracter => self.agregarCaracter(caracter)})
+    }
+    method agregarCaracter(caracter){
+        caracteres.add(new Caracter(imagen = diccionario.get(caracter).get(0), posicion = game.at(posicion.x() + x,posicion.y() + y - diccionario.get(caracter).get(2))))
+        game.addVisual(caracteres.get(index))
+        x += diccionario.get(caracter).get(1)
+        index += 1
     }
     method limpiarTexto(){
         caracteres.forEach({
