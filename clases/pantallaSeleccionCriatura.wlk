@@ -45,17 +45,16 @@ object seleccion{
     }
     method seleccionarBoton(){
         if(pantallaSeleccionCriatura.listaBotones().get(index).press()){
-            //Despues lo hago andar
-
-            //var marca = marcas.find({selec => selec.index() == index})
-            //if(marca != null){
-            //    marcas.remove(marca)
-            //    game.removeVisual(marca)
-            //} else {
-            //    var marca = new MarcaSeleccion(posicion = posiciones.get(index),index = index)
-            //    marcas.add(marca)
-            //    game.addVisual(marca)
-            //}
+            var marca
+            if(marcas.any({m => m.index() == index})){
+                marca = marcas.find({m => m.index() == index})
+                marcas.remove(marca)
+                game.removeVisual(marca)
+            } else {
+                marca = new MarcaSeleccion(posicion = posiciones.get(index),index = index)
+                marcas.add(marca)
+                game.addVisual(marca)
+            }
         }
     }
     method obtenerPosiciones(){
