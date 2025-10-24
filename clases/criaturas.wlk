@@ -21,9 +21,8 @@ class Criatura {
       energia = self.tomarValorMayorEntreCeroYoOtro(energia - cantidad)
     }
 
-  method estaViva() {
-    return vida > 0
-  }
+  method estaViva() = vida > 0
+
 
   
   method atacar(movimiento, criaturaObjetivo) {

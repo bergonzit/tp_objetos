@@ -74,9 +74,8 @@ class BotonOpcion inherits Boton(sprite = ["boton1.png","boton_hover.png"]){
 class BotonSeleccionCriatura inherits Boton(){
     var criatura
     override method image() = sprite
-    override method press(){
-        return jugador.seleccionCriatura(criatura)
-    } 
+    override method press() = jugador.seleccionCriatura(criatura)
+    
 }
 
 const botonJugar = new BotonOpcion(secuencia = {gestorPantallas.cambiarPantalla(pantallaSeleccionCriatura)})
