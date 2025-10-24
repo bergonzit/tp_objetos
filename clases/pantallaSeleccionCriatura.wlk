@@ -12,17 +12,17 @@ object pantallaSeleccionCriatura{
         
     }
     method colocarBotones(){
-        var y = 41
-        var x = 3
+        var y = 72
+        var x = 10
         var i = 0
         listaBotones.forEach({
             boton => boton.posicion(game.at(x,y))
             game.addVisual(boton)
-            x += 12
+            x += 20
             i += 1
             if  (i == 4){
-                x = 3
-                y -= 12
+                x = 10
+                y -= 20
                 i = 0
             }
         })
@@ -34,7 +34,7 @@ object seleccion{
     var posiciones = []
     var index = 0
     var marcas = []
-    method image() = "seleccion64.png"
+    method image() = "seleccion128.png"
     method position() = posicion
     method habilitarSeleccion(){
        self.obtenerPosiciones()
@@ -76,6 +76,6 @@ object seleccion{
 class MarcaSeleccion{
     var posicion
     var property index
-    method image() = "marca64.png"
+    method image() = "marca128.png"
     method position() = posicion
 }

@@ -59,7 +59,7 @@ class Boton{
     method press()
 }
 
-class BotonOpcion inherits Boton(sprite = ["boton.png","boton_hover.png"]){
+class BotonOpcion inherits Boton(sprite = ["boton1.png","boton_hover.png"]){
     var hover = false
     var secuencia
     override method image() = sprite.get(if (hover) 1 else 0)
@@ -84,11 +84,11 @@ const botonAux = new BotonOpcion(secuencia = {game.say(botonAux,"Hola Mundo")})
 
 //Botones seleccion criatura
 
-const botonLaoc = new BotonSeleccionCriatura(sprite = "Laoc64.png",criatura = new Laoc())
-const botonLaoc1 = new BotonSeleccionCriatura(sprite = "Laoc64.png",criatura = new Laoc())
-const botonLaoc2 = new BotonSeleccionCriatura(sprite = "Laoc64.png",criatura = new Laoc())
-const botonLaoc3 = new BotonSeleccionCriatura(sprite = "Laoc64.png",criatura = new Laoc())
-const botonLaoc4 = new BotonSeleccionCriatura(sprite = "Laoc64.png",criatura = new Laoc())
-const botonLaoc5 = new BotonSeleccionCriatura(sprite = "Laoc64.png",criatura = new Laoc())
-const botonSeedy = new BotonSeleccionCriatura(sprite = "Seedy64.png",criatura = new Seedy())
-const botonLacui = new BotonSeleccionCriatura(sprite = "Lacui64.png",criatura = new Lacui())
+const botonLaoc = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
+const botonLaoc1 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
+const botonLaoc2 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
+const botonLaoc3 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
+const botonLaoc4 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
+const botonLaoc5 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
+const botonSeedy = new BotonSeleccionCriatura(sprite = "Seedy128.png",criatura = new Seedy())
+const botonLacui = new BotonSeleccionCriatura(sprite = "Lacui128.png",criatura = new Lacui())
