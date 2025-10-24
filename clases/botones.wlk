@@ -75,7 +75,7 @@ class BotonSeleccionCriatura inherits Boton(){
     var criatura
     override method image() = sprite
     override method press(){
-        jugador.seleccionCriatura(criatura)
+        return jugador.seleccionCriatura(criatura)
     } 
 }
 

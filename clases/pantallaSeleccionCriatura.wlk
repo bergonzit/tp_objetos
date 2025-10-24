@@ -27,10 +27,12 @@ object pantallaSeleccionCriatura{
         })
     }
 }
+
 object seleccion{
     var posicion = null
     var posiciones = []
     var index = 0
+    var marcas = []
     method image() = "seleccion64.png"
     method position() = posicion
     method habilitarSeleccion(){
@@ -39,6 +41,22 @@ object seleccion{
        keyboard.left().onPressDo{self.mover(-1)}
        keyboard.up().onPressDo{self.mover(-4)}
        keyboard.down().onPressDo{self.mover(4)}
+       keyboard.enter().onPressDo{self.seleccionarBoton()}
+    }
+    method seleccionarBoton(){
+        if(pantallaSeleccionCriatura.listaBotones().get(index).press()){
+            //Despues lo hago andar
+
+            //var marca = marcas.find({selec => selec.index() == index})
+            //if(marca != null){
+            //    marcas.remove(marca)
+            //    game.removeVisual(marca)
+            //} else {
+            //    var marca = new MarcaSeleccion(posicion = posiciones.get(index),index = index)
+            //    marcas.add(marca)
+            //    game.addVisual(marca)
+            //}
+        }
     }
     method obtenerPosiciones(){
         posiciones = pantallaSeleccionCriatura.listaBotones().map({boton => boton.posicion()})
@@ -50,5 +68,11 @@ object seleccion{
         posicion = posiciones.get(index)
       }
     }
+}
 
+class MarcaSeleccion{
+    var posicion
+    var property index
+    method image() = "marca64.png"
+    method position() = posicion
 }
