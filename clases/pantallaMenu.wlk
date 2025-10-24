@@ -2,6 +2,7 @@ import clases.gestorPantallas.*
 import clases.botones.*
 import wollok.game.*
 import clases.fondo.fondo
+import clases.texto.*
 object pantallaMenu {
     var boton = botonJugar
     method run(){
@@ -17,6 +18,12 @@ object pantallaMenu {
 
         //Controles
         keyboard.enter().onPressDo{boton.press()}
+
+        //Ejemplo de texto con fuente
+        var texto = new Texto(posicion = game.at(25,70), largo = 50)
+        texto.inicializar() //Tiene que ejecutarse si o si, buscar manera de precargar el diccionario
+        texto.texto("Esto es un texto, y sirve para ser un texto")
+        texto.mostrarTexto()
     }
 
 }
