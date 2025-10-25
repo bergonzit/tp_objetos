@@ -20,7 +20,7 @@ object pantallaMenu {
         keyboard.enter().onPressDo{boton.press()}
 
         //Ejemplo de texto con fuente
-        var texto = new Texto(posicion = game.at(25,70), largo = 50)
+        var texto = new Texto(posicion = game.at(25,70), limite = 50)
         texto.inicializar() //Tiene que ejecutarse si o si, buscar manera de precargar el diccionario
         texto.texto("Esto es un texto, y sirve para ser un texto")
         texto.mostrarTexto()
