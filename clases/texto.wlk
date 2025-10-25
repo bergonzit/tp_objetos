@@ -1,5 +1,5 @@
 class Texto{
-    var largo //Que tanto se puede extender el texto de longitud en celdas. Si se excede continua hacia abajo
+    var limite //Que tanto se puede extender el texto de longitud en celdas. Si se excede continua hacia abajo
     var property caracteres = []
     var property texto = ""
     var diccionario = new Dictionary()
@@ -10,42 +10,74 @@ class Texto{
     var x = 0
     var y = 0
     var index = 0
+    var longitud = 0 //Sirve para poder centrar el texto
     
-
     method mostrarTexto(){
         self.limpiarTexto()
-        x = 0
-        y = 0
-        index = 0
-        self.separarPalabras(texto.split(" "))
+        self.resetearVariables()
+        var listasCaracteres = self.separarCaracteres() //[[l,i,s,t,a,s],[d,e],[c,a,r,a,c,t,e,r,e,s]]
+        listasCaracteres.forEach({listaCaracteres => self.agregarCaracteres(listaCaracteres)})
     }
-    method separarPalabras(textos){
-        textos.forEach({text =>
-            //Si puede superar el limite, cambia de linea
-            if (text.size() * desplazamientoPromedio + x > largo){
-                y -= 8
-                x = 0
-            }
-            self.separarCaracteres(text)
-            x += desplazamientoEspacio
-        })
-    }
-    method separarCaracteres(text){
-        text.split("").forEach({caracter => self.agregarCaracter(caracter)})
-    }
-    method agregarCaracter(caracter){
-        caracteres.add(new Caracter(imagen = diccionario.get(caracter).get(0), posicion = game.at(posicion.x() + x,posicion.y() + y - diccionario.get(caracter).get(2))))
-        game.addVisual(caracteres.get(index))
-        x += diccionario.get(caracter).get(1)
-        index += 1
-    }
+
     method limpiarTexto(){
+        longitud = 0
         caracteres.forEach({
             letra => 
             game.removeVisual(letra)
             caracteres.remove(letra)
         })
     }
+
+    method resetearVariables(){
+        x = 0
+        y = 0
+        index = 0
+    }
+
+    method separarCaracteres(){
+        return self.separarPalabras().map({palabra => palabra.split("")})
+    }
+
+    method separarPalabras(){
+        return texto.split(" ")
+    }
+
+    method agregarCaracteres(lista){ // [l,i,s,t,a,s]
+        self.revisionExcesoDeLimite(lista)
+        lista.forEach({caracter => self.agregarCaracter(caracter)})
+        x += desplazamientoEspacio
+    }
+
+    method revisionExcesoDeLimite(lista){
+        if ((lista.size() * desplazamientoPromedio + x) > limite){
+            y -= 8
+            self.reemplazarLongitud() //Si x supera a longitud, longitud = x
+            x = 0
+        }
+    }
+
+    method reemplazarLongitud(){
+        if (x > longitud){
+            longitud = x
+        }
+    }
+
+    method agregarCaracter(caracter){ // l
+        //Obtener atributos del caracter
+        const imagen = diccionario.get(caracter).get(0) //Imagen del caracter
+        const desplazamiento = diccionario.get(caracter).get(1) //Espacio que deja en casillas
+        const correccionAltura = diccionario.get(caracter).get(2) //Correccion de altura en casillas
+        //Agrega caracter
+        caracteres.add(new Caracter(imagen = imagen, posicion = self.ubicacionCaracter(correccionAltura)))
+        game.addVisual(caracteres.get(index))
+        x += desplazamiento
+        index += 1
+    }
+
+    method ubicacionCaracter(variacionY){
+        return game.at(posicion.x() + x,posicion.y() + y - variacionY)
+    }
+
     //Mantener metodo oculto para tener paz mental
     method inicializar(){
         diccionario.put("A", ["A.png", 6, 0])
@@ -93,9 +125,9 @@ class Texto{
         diccionario.put("o", ["oo.png", 4, 0])
         diccionario.put("p", ["pp.png", 4, 0])
         diccionario.put("q", ["qq.png", 4, 2])
-        diccionario.put("r", ["rr.png", 4, 0])
+        diccionario.put("r", ["rr.png", 3, 0])
         diccionario.put("s", ["ss.png", 4, 0])
-        diccionario.put("t", ["tt.png", 4, 0])
+        diccionario.put("t", ["tt.png", 3, 0])
         diccionario.put("u", ["uu.png", 4, 0])
         diccionario.put("v", ["vv.png", 4, 0])
         diccionario.put("w", ["ww.png", 5, 0])
