@@ -10,17 +10,19 @@ class Texto{
     var x = 0
     var y = 0
     var index = 0
-    var longitud = 0 //Sirve para poder centrar el texto
+    var longitudes = []
+    var cambiosLinea = [] //Sirve para poder centrar el texto
     
     method mostrarTexto(){
         self.limpiarTexto()
         self.resetearVariables()
         var listasCaracteres = self.separarCaracteres() //[[l,i,s,t,a,s],[d,e],[c,a,r,a,c,t,e,r,e,s]]
         listasCaracteres.forEach({listaCaracteres => self.agregarCaracteres(listaCaracteres)})
+        self.agregarLongitud()
     }
 
     method limpiarTexto(){
-        longitud = 0
+        longitudes = []
         caracteres.forEach({
             letra => 
             game.removeVisual(letra)
@@ -51,16 +53,18 @@ class Texto{
     method revisionExcesoDeLimite(lista){
         if ((lista.size() * desplazamientoPromedio + x) > limite){
             y -= 8
-            self.reemplazarLongitud() //Si x supera a longitud, longitud = x
+            self.agregarLongitud() 
             x = 0
         }
     }
 
-    method reemplazarLongitud(){
-        if (x > longitud){
-            longitud = x
-        }
+    method agregarLongitud(){
+        x -= desplazamientoEspacio //Anula ultimo espacio
+        longitudes.add(x)
+        cambiosLinea.add(index - self.cambiosPrevios())
     }
+
+    method cambiosPrevios() = cambiosLinea.fold(0, {suma,cambio => suma + cambio})
 
     method agregarCaracter(caracter){ // l
         //Obtener atributos del caracter
@@ -77,6 +81,27 @@ class Texto{
     method ubicacionCaracter(variacionY){
         return game.at(posicion.x() + x,posicion.y() + y - variacionY)
     }
+
+    method centrar(){
+        const distancias = longitudes.map({longitud => (longitud/2).roundUp(0)})
+        var auxCaracteres = 0
+        var auxDistancias = 0
+        caracteres.forEach({caracter => 
+            caracter.posicion(
+                game.at(
+                    caracter.posicion().x() - distancias.get(auxDistancias),
+                    caracter.posicion().y()))
+            auxCaracteres += 1
+            if (auxCaracteres == cambiosLinea.get(auxDistancias)) {
+                auxDistancias += 1
+                auxCaracteres = 0
+            }
+        })
+    }
+    /*caracter.posicion(
+                    game.at(
+                        caracter.posicion().x() - distancias.get(auxDistancias),
+                        caracter.posicion().y()))*/
 
     //Mantener metodo oculto para tener paz mental
     method inicializar(){
@@ -155,7 +180,7 @@ class Texto{
 
 class Caracter{
     var imagen
-    var posicion
+    var property posicion
     method image() = imagen
     method position() = posicion
 }
