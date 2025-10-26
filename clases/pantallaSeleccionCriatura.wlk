@@ -2,30 +2,34 @@ import clases.fondo.fondo
 import clases.botones.*
 
 object pantallaSeleccionCriatura{
-    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonLaoc1,botonLaoc2,botonLaoc3,botonLaoc4,botonLaoc5]
+    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonArgentum]
     method run(){
         fondo.imagenFondo("fondo2.png")
         game.addVisual(fondo)
         self.colocarBotones()
         game.addVisual(seleccion)
         seleccion.habilitarSeleccion()
-        
     }
+
     method colocarBotones(){
         var y = 72
         var x = 10
+        const desplazamiento = 20
         var i = 0
         listaBotones.forEach({
             boton => boton.posicion(game.at(x,y))
             game.addVisual(boton)
-            x += 20
+            x += desplazamiento
             i += 1
             if  (i == 4){
                 x = 10
-                y -= 20
+                y -= desplazamiento
                 i = 0
             }
         })
+    }
+    method mostrarInfoSeleccion(index){
+
     }
 }
 

@@ -84,10 +84,6 @@ const botonAux = new BotonOpcion(secuencia = {game.say(botonAux,"Hola Mundo")})
 //Botones seleccion criatura
 
 const botonLaoc = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
-const botonLaoc1 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
-const botonLaoc2 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
-const botonLaoc3 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
-const botonLaoc4 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
-const botonLaoc5 = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
 const botonSeedy = new BotonSeleccionCriatura(sprite = "Seedy128.png",criatura = new Seedy())
 const botonLacui = new BotonSeleccionCriatura(sprite = "Lacui128.png",criatura = new Lacui())
+const botonArgentum = new BotonSeleccionCriatura(sprite = "Argentum128.png",criatura = new Argentum())

@@ -55,7 +55,7 @@ class Seedy inherits Criatura
  tipo = planta
  ){}
 
- class Lacui inherits Criatura 
+class Lacui inherits Criatura 
 (nombre = "Lacui",
  vidaMax = 140, vida = vidaMax,
  energiaMax = 320, energia = energiaMax,
@@ -63,4 +63,14 @@ class Seedy inherits Criatura
  movimientos = null,
  sprite = "Lacui128.png",
  tipo = agua
+ ){}
+
+class Argentum inherits Criatura 
+(nombre = "Lacui",
+ vidaMax = 230, vida = vidaMax,
+ energiaMax = 250, energia = energiaMax,
+ velocidad = 50,
+ movimientos = null,
+ sprite = "Argentum128.png",
+ tipo = planta
  ){}
