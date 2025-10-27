@@ -89,3 +89,4 @@ const botonSeedy = new BotonSeleccionCriatura(sprite = "Seedy128.png",criatura =
 const botonLacui = new BotonSeleccionCriatura(sprite = "Lacui128.png",criatura = new Lacui())
 const botonCrigmal = new BotonSeleccionCriatura(sprite = "Crigmal128.png",criatura = new Crigmal())
 const botonArgentum = new BotonSeleccionCriatura(sprite = "Argentum128.png",criatura = new Argentum())
+const botonSoul = new BotonSeleccionCriatura(sprite = "Soul128.png",criatura = new Soul())

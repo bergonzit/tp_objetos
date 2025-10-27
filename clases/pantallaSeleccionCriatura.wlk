@@ -4,7 +4,7 @@ import clases.texto.*
 
 object pantallaSeleccionCriatura{
     //Hay que acomodar el codigo
-    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonCrigmal,botonArgentum]
+    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonCrigmal,botonArgentum,botonSoul]
     method run(){
         fondo.imagenFondo("fondo2.png")
         game.addVisual(fondo)

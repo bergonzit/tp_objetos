@@ -93,3 +93,13 @@ class Argentum inherits Criatura
  sprite = "Argentum256.png",
  tipo = planta
  ){}
+
+ class Soul inherits Criatura
+ (nombre = "S O U L",
+ vidaMax = 150, vida = vidaMax,
+ energiaMax = 300, energia = energiaMax,
+ velocidad = 15, //Mantenerlo como el más rapido
+ movimientos = null,
+ sprite = "Soul256.png",
+ tipo = normal
+ ){}
