@@ -1,15 +1,15 @@
 import tipos.*
 
 class Criatura {
-  var nombre
+  var property nombre
   var property vida
-  var vidaMax
+  const property vidaMax
   var property energia
-  var energiaMax
+  const property energiaMax
   var velocidad
   var movimientos //Lista de movimientos [4?]
-  var sprite //Dibujo de la criatura
-  var property tipo //En teoria los tipos se hacen con otra clase
+  var property sprite //Dibujo de la criatura
+  var tipo //En teoria los tipos se hacen con otra clase
 
   method tomarValorMayorEntreCeroYoOtro(valorAComparar) = valorAComparar.max(0)
 
@@ -29,7 +29,6 @@ class Criatura {
     if (energia >= movimiento.costoEnergia()) {
           movimiento.accion(self, criaturaObjetivo)
         } 
-    
     }
 
 
@@ -41,7 +40,7 @@ class Laoc inherits Criatura
  energiaMax = 300, energia = energiaMax,
  velocidad = 70,
  movimientos = null,
- sprite = "Laoc128.png",
+ sprite = "Laoc256.png",
  tipo = fuego
  ){}
 
@@ -51,7 +50,7 @@ class Seedy inherits Criatura
  energiaMax = 280, energia = energiaMax,
  velocidad = 65,
  movimientos = null,
- sprite = "Seedy128.png",
+ sprite = "Seedy256.png",
  tipo = planta
  ){}
 
@@ -61,16 +60,26 @@ class Lacui inherits Criatura
  energiaMax = 320, energia = energiaMax,
  velocidad = 75,
  movimientos = null,
- sprite = "Lacui128.png",
+ sprite = "Lacui256.png",
  tipo = agua
  ){}
 
+class Crigmal inherits Criatura 
+(nombre = "Crigmal",
+ vidaMax = 170, vida = vidaMax,
+ energiaMax = 270, energia = energiaMax,
+ velocidad = 70,
+ movimientos = null,
+ sprite = "Crigmal256.png",
+ tipo = normal
+ ){}
+
 class Argentum inherits Criatura 
-(nombre = "Lacui",
+(nombre = "Argentum",
  vidaMax = 230, vida = vidaMax,
  energiaMax = 250, energia = energiaMax,
  velocidad = 50,
  movimientos = null,
- sprite = "Argentum128.png",
+ sprite = "Argentum256.png",
  tipo = planta
  ){}

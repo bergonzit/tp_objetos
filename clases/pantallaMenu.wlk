@@ -20,11 +20,10 @@ object pantallaMenu {
         keyboard.enter().onPressDo{boton.press()}
 
         //Ejemplo de texto con fuente
-        var texto = new Texto(posicion = game.center(), limite = 50)
-        texto.inicializar() //Tiene que ejecutarse si o si, buscar manera de precargar el diccionario
-        texto.texto("Texto Centrado")
-        texto.mostrarTexto()
-        texto.centrar()
+        //var texto = new Texto(posicion = game.center(), limite = 50)
+        //texto.texto("Texto Centrado")
+        //texto.mostrarTexto()
+        //texto.centrar()
     }
 
 }
