@@ -19,7 +19,8 @@ object planta inherits Tipo(nombre = "Planta", multFuego = 0.5, multAgua = 2, mu
 object normal inherits Tipo(nombre = "Normal", multFuego = 1, multAgua = 1, multPlanta = 1) {}*/
 
 class Tipo {
-  var nombre
+  var property nombre
+  var property imagen
   var ventajas = []
   var desventajas = []
   
@@ -33,31 +34,34 @@ class Tipo {
     }
   }
 
-  method getNombre(){
-    return nombre
-  }
+  method image() = imagen
+
 }
 
 const normal = new Tipo(
   nombre = "Normal",
+  imagen = "Normal.png",
   ventajas = [],
   desventajas = []
 )
 
 const fuego = new Tipo(
   nombre = "Fuego",
+  imagen = "Fuego.png",
   ventajas = [planta],
   desventajas = [agua]
 )
 
 const agua = new Tipo(
   nombre = "Agua",
+  imagen = "Agua.png",
   ventajas = [fuego],
   desventajas = [planta]
 )
 
 const planta = new Tipo(
   nombre = "Planta",
+  imagen = "Planta.png",
   ventajas = [agua],
   desventajas = [fuego]
 )

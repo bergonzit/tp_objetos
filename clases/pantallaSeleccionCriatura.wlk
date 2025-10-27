@@ -1,14 +1,20 @@
 import clases.fondo.fondo
 import clases.botones.*
+import clases.texto.*
 
 object pantallaSeleccionCriatura{
-    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonArgentum]
+    //Hay que acomodar el codigo
+    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonCrigmal,botonArgentum]
     method run(){
         fondo.imagenFondo("fondo2.png")
         game.addVisual(fondo)
         self.colocarBotones()
         game.addVisual(seleccion)
         seleccion.habilitarSeleccion()
+        game.addVisual(informacionCriatura)
+        game.addVisual(imagenCriatura)
+        game.addVisual(botonCombatir)
+        botonCombatir.posicion(game.at(8,4))
     }
 
     method colocarBotones(){
@@ -28,9 +34,6 @@ object pantallaSeleccionCriatura{
             }
         })
     }
-    method mostrarInfoSeleccion(index){
-
-    }
 }
 
 object seleccion{
@@ -38,15 +41,18 @@ object seleccion{
     var posiciones = []
     var index = 0
     var marcas = []
+    var property criaturaActual = null
     method image() = "seleccion128.png"
     method position() = posicion
     method habilitarSeleccion(){
        self.obtenerPosiciones()
+       self.criaturaActual(pantallaSeleccionCriatura.listaBotones().get(index).criatura())
        keyboard.right().onPressDo{self.mover(1)}
        keyboard.left().onPressDo{self.mover(-1)}
        keyboard.up().onPressDo{self.mover(-4)}
        keyboard.down().onPressDo{self.mover(4)}
        keyboard.enter().onPressDo{self.seleccionarBoton()}
+        informacionCriatura.actualizarInformacion(criaturaActual)
     }
     method seleccionarBoton(){
         if(pantallaSeleccionCriatura.listaBotones().get(index).press()){
@@ -72,8 +78,14 @@ object seleccion{
             index = 0
         } else if (index > posiciones.size() - 1 ){ //Sacar el -1 cuando termine el botonBatalla
             index = posiciones.size() -1
+        } else {
+            //Hacer boton de batalla
         }
         posicion = posiciones.get(index)
+
+        //Mostrar Info
+        self.criaturaActual(pantallaSeleccionCriatura.listaBotones().get(index).criatura())
+        informacionCriatura.actualizarInformacion(criaturaActual)
     }
 }
 
@@ -82,4 +94,27 @@ class MarcaSeleccion{
     var property index
     method image() = "marca128.png"
     method position() = posicion
+}
+
+object informacionCriatura{
+    var nombreCriatura = new Texto(posicion = game.at(120,81),limite = 90)
+    var imagen = ""
+    var posicion = game.at(109,7)
+    method image() = imagen
+    method position() = posicion
+
+
+    method actualizarInformacion(criatura) {
+        nombreCriatura.texto(criatura.nombre())
+        imagenCriatura.imagen(criatura.sprite())
+        imagen = criatura.tipo().imagen()
+        nombreCriatura.mostrarTexto()
+        nombreCriatura.centrar()
+    }
+}
+
+object imagenCriatura{
+    var property imagen = ""
+    method image() = imagen
+    method position() = game.at(104,32)
 }

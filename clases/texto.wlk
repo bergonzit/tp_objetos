@@ -23,6 +23,7 @@ class Texto{
 
     method limpiarTexto(){
         longitudes = []
+        cambiosLinea = []
         caracteres.forEach({
             letra => 
             game.removeVisual(letra)
@@ -98,13 +99,8 @@ class Texto{
             }
         })
     }
-    /*caracter.posicion(
-                    game.at(
-                        caracter.posicion().x() - distancias.get(auxDistancias),
-                        caracter.posicion().y()))*/
 
-    //Mantener metodo oculto para tener paz mental
-    method inicializar(){
+    method initialize(){
         diccionario.put("A", ["A.png", 6, 0])
         diccionario.put("B", ["B.png", 5, 0])
         diccionario.put("C", ["C.png", 5, 0])
@@ -138,7 +134,7 @@ class Texto{
         diccionario.put("d", ["dd.png", 4, 0])
         diccionario.put("e", ["ee.png", 4, 0])
         diccionario.put("f", ["ff.png", 4, 0])
-        diccionario.put("g", ["gg.png", 5, 0])
+        diccionario.put("g", ["gg.png", 5, 1])
         diccionario.put("h", ["hh.png", 4, 0])
         diccionario.put("i", ["ii.png", 2, 0])
         diccionario.put("j", ["jj.png", 3, 0])
