@@ -1,7 +1,7 @@
 import gestorPantallas.gestorPantallas
 import pantallaMenu.pantallaMenu
 import pantallaSeleccionCriatura.pantallaSeleccionCriatura
-import clases.jugador.jugador
+import clases.jugadores.jugador
 import clases.criaturas.*
 /*class Boton{
     var sprite = ["boton.png","boton_hover.png"]
@@ -52,41 +52,39 @@ const botonAux = new Boton(pantalla = pantallaMenu)*/
 
 
 class Boton{
-    var sprite 
+    var sprite
+    var property secuencia
     var property posicion = game.center()
     method position() = posicion 
     method image()
     method press()
 }
 
-class BotonOpcion inherits Boton(sprite = ["boton_opciones.png","boton_opciones_hover.png"]){
-    var hover = false
-    var secuencia
-    override method image() = sprite.get(if (hover) 1 else 0)
+class BotonOpcion inherits Boton(sprite = "boton_opciones.png"){
+    
+    override method image() = sprite
     override method press(){
         secuencia.apply()
     } 
-    method cambiarHover(){
-        hover = !hover
-    }
 }
 
 class BotonSeleccionCriatura inherits Boton(){
-    var property criatura
+    
     override method image() = sprite
     override method press(){
         return jugador.seleccionCriatura(criatura)
-    } 
+    }
+    var property criatura = secuencia.apply()
 }
 
-const botonJugar = new BotonOpcion(sprite = ["boton1.png"],secuencia = {gestorPantallas.cambiarPantalla(pantallaSeleccionCriatura)})
+const botonJugar = new BotonOpcion(sprite = "boton1.png",secuencia = {gestorPantallas.cambiarPantalla(pantallaSeleccionCriatura)})
 const botonCombatir = new BotonOpcion(secuencia = {})
 
 //Botones seleccion criatura
 
-const botonLaoc = new BotonSeleccionCriatura(sprite = "Laoc128.png",criatura = new Laoc())
-const botonSeedy = new BotonSeleccionCriatura(sprite = "Seedy128.png",criatura = new Seedy())
-const botonLacui = new BotonSeleccionCriatura(sprite = "Lacui128.png",criatura = new Lacui())
-const botonCrigmal = new BotonSeleccionCriatura(sprite = "Crigmal128.png",criatura = new Crigmal())
-const botonArgentum = new BotonSeleccionCriatura(sprite = "Argentum128.png",criatura = new Argentum())
-const botonSoul = new BotonSeleccionCriatura(sprite = "Soul128.png",criatura = new Soul())
+const botonLaoc = new BotonSeleccionCriatura(sprite = "Laoc128.png",secuencia = {new Laoc()})
+const botonSeedy = new BotonSeleccionCriatura(sprite = "Seedy128.png",secuencia = {new Seedy()})
+const botonLacui = new BotonSeleccionCriatura(sprite = "Lacui128.png",secuencia = {new Lacui()})
+const botonCrigmal = new BotonSeleccionCriatura(sprite = "Crigmal128.png",secuencia = {new Crigmal()})
+const botonArgentum = new BotonSeleccionCriatura(sprite = "Argentum128.png",secuencia = {new Argentum()})
+const botonSoul = new BotonSeleccionCriatura(sprite = "Soul128.png",secuencia = {new Soul()})

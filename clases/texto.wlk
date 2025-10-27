@@ -171,6 +171,7 @@ class Texto{
         diccionario.put(":", ["dos puntos.png", 3, 0])
         diccionario.put("?", ["pregunta.png", 4, 0])
         diccionario.put("!", ["exclamacion.png", 3, 0])
+        diccionario.put("/", ["slash.png", 3, 0])
     }
 }
 

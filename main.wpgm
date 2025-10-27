@@ -3,6 +3,7 @@ import wollok.game.*
 import clases.gestorPantallas.gestorPantallas
 
 
+
 program Game {
 	//Configuración del juego
 	game.title("Game")

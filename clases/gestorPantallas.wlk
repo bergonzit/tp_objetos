@@ -1,11 +1,14 @@
 import pantallaMenu.pantallaMenu
 import pantallaSeleccionCriatura.pantallaSeleccionCriatura
+import pantallaBatalla.pantallaBatalla
+import clases.fondo.fondo
 
 object gestorPantallas{
     var actual = pantallaMenu
     method position() = game.center()
     method run(){
         game.clear()
+        self.cambiarFondo(actual.fondo())
         actual.run()
     }
 
@@ -13,24 +16,10 @@ object gestorPantallas{
         actual = pantalla
         self.run()
     }
+
+    method cambiarFondo(imagen){
+        fondo.imagenFondo(imagen)
+        game.addVisual(fondo)
+    }
 }    
 
-/*
-object gestorPantallas{
-    var actual = null
-    method position() = game.center()
-    method run(){
-       self.cargarPantalla(pantallaMenu)
-    }
-
-    method cambiarSeleccionCriatura(){
-        self.cargarPantalla(pantallaSeleccionCriatura)
-    }
-
-    method cargarPantalla(pantalla){
-        game.clear()
-        actual = pantalla
-        actual.run()
-    }
-}
-*/

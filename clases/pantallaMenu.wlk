@@ -1,15 +1,13 @@
+import clases.pantallaSeleccionCriatura.*
 import clases.gestorPantallas.*
 import clases.botones.*
 import wollok.game.*
 import clases.fondo.fondo
 import clases.texto.*
 object pantallaMenu {
+    var property fondo = "fondo.png"
     var boton = botonJugar
-    method run(){
-        //Muestra fondo
-        fondo.imagenFondo("fondo.png")
-        game.addVisual(fondo)
-        
+    method run(){  
         //Posiciona los botones
 
         game.addVisual(boton)
@@ -18,7 +16,6 @@ object pantallaMenu {
 
         //Controles
         keyboard.enter().onPressDo{boton.press()}
-
         //Ejemplo de texto con fuente
         //var texto = new Texto(posicion = game.center(), limite = 50)
         //texto.texto("Texto Centrado")
