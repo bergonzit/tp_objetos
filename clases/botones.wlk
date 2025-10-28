@@ -1,84 +1,52 @@
 import gestorPantallas.gestorPantallas
 import pantallaMenu.pantallaMenu
 import pantallaSeleccionCriatura.pantallaSeleccionCriatura
+import clases.pantallaBatalla.pantallaBatalla
 import clases.jugadores.jugador
 import clases.criaturas.*
-/*class Boton{
-    var sprite = ["boton.png","boton_hover.png"]
-    var property posicion = game.center()
-    method position() = posicion 
-    var hover = false
-    method image() = sprite.get(if (hover) 1 else 0)
-    method press() 
-    //method press()
-    method cambiarHover(){
-        hover = !hover
-    }
-
-
-}
-
-object botonJugar inherits Boton(){
-    override method press(){
-        gestorPantallas.cambiarSeleccionCriatura()
-    }
-}
-
-//Todavia no se para que vamos a usarlo pero lo dejo x si acaso
-object botonAux inherits Boton(){
-    override method press(){
-        game.say(self, "Soy un Boton")
-    }
-}*/
-
-/*class Boton{
-    var sprite = ["boton.png","boton_hover.png"]
-    var property posicion = game.center()
-    var pantalla
-    method position() = posicion 
-    var hover = false
-    method image() = sprite.get(if (hover) 1 else 0)
-    method press(){
-        gestorPantallas.cambiarPantalla(pantalla)
-    } 
-    method cambiarHover(){
-        hover = !hover
-    }
-
-}
-
-const botonJugar = new Boton(pantalla = pantallaSeleccionCriatura)
-const botonAux = new Boton(pantalla = pantallaMenu)*/
-
+import clases.texto.*
+import wollok.game.*
 
 class Boton{
     var sprite
     var property secuencia
     var property posicion = game.center()
     method position() = posicion 
-    method image()
+    method image() = sprite
     method press()
 }
 
 class BotonOpcion inherits Boton(sprite = "boton_opciones.png"){
-    
-    override method image() = sprite
     override method press(){
         secuencia.apply()
     } 
 }
 
 class BotonSeleccionCriatura inherits Boton(){
-    
-    override method image() = sprite
     override method press(){
         return jugador.seleccionCriatura(criatura)
     }
     var property criatura = secuencia.apply()
 }
 
+class BotonCambioCriatura inherits Boton(sprite = "boton_chico.png"){
+    var valorTexto
+    var property texto = new Texto(posicion = game.at(posicion.x() + 20 ,posicion.y() + 5),limite = 38)
+    method initialize(){
+        game.addVisual(self)
+        texto.texto(valorTexto)
+        texto.mostrarTexto()
+        texto.centrar()
+    }
+    override method press(){
+        return secuencia
+    } 
+}
+
+
+
 const botonJugar = new BotonOpcion(sprite = "boton1.png",secuencia = {gestorPantallas.cambiarPantalla(pantallaSeleccionCriatura)})
-const botonCombatir = new BotonOpcion(secuencia = {})
+const botonCombatir = new BotonOpcion(secuencia = {gestorPantallas.cambiarPantalla(pantallaBatalla)})
 
 //Botones seleccion criatura
 

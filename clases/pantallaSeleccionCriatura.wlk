@@ -76,7 +76,7 @@ object pantallaSeleccionCriatura{
 
     method iniciarCambioPantalla(){
         self.asignarCriaturasRivales()
-        gestorPantallas.cambiarPantalla(pantallaBatalla)
+        botonCombatir.press()
     }
 
     method asignarCriaturasRivales(){
