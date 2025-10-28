@@ -1,18 +1,15 @@
 import tipos.*
 class Movimiento {
-    var nombre
-    var costo
-    var poder
-    var tipo
+    const property nombre
+    const property costo
+    const property poder
+    const property precision
+    const property tipo
     
 
-    method accion(criaturaAtacante, criaturaObjetivo) {
-        criaturaAtacante.restarEnergia(costo)
-        criaturaObjetivo.sacarVida(poder * tipo.obtenerMult(criaturaObjetivo.tipo()))
-    }
-
-    method costoEnergia() {
-        return costo
+    method accion(criaturaObjetivo) {
+        if(precision >= 0.randomUpTo(precision))
+            criaturaObjetivo.sacarVida(poder * tipo.obtenerMult(criaturaObjetivo.tipo()))
     }
 }
 
@@ -20,6 +17,7 @@ const placaje = new Movimiento(
     nombre = "Placaje",
     costo = 10,
     poder = 15,
+    precision = 100,
     tipo = normal
 )
 

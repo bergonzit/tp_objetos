@@ -3,7 +3,8 @@ import wollok.game.*
 import clases.texto.*
 import clases.gestorPantallas.*
 object pantallaBatalla{
-    var property fondo = "fondo.png"
+    var property fondo = "fondo3.png"
+
     method run(){
         
     }
