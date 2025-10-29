@@ -1,5 +1,6 @@
 import clases.botones.*
 object jugador{
+    var property index = 0
     var property criaturas = []
     const property maxCriaturas = 4
 
@@ -23,6 +24,10 @@ object jugador{
             self.agregarCriatura(criatura)
         else cambia = false
         return cambia
+    }
+
+    method criaturaSeleccionada(){
+        return criaturas.get(index)
     }
 }
 

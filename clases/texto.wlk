@@ -1,5 +1,5 @@
 class Texto{
-    var limite //Que tanto se puede extender el texto de longitud en celdas. Si se excede continua hacia abajo
+    var property limite //Que tanto se puede extender el texto de longitud en celdas. Si se excede continua hacia abajo
     var property caracteres = []
     var property texto = ""
     var diccionario = new Dictionary()

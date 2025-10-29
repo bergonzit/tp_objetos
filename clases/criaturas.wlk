@@ -95,7 +95,7 @@ class Argentum inherits Criatura
  ){}
 
  class Soul inherits Criatura
- (nombre = "S O U L",
+ (nombre = "Soul",
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
  velocidad = 15, //Mantenerlo como el más rapido

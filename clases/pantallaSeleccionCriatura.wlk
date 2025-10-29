@@ -1,6 +1,6 @@
 import clases.gestorPantallas.*
 import clases.fondo.fondo
-import clases.pantallaBatalla.*
+import clases.pantallaBatalla.pantallaBatalla
 import clases.botones.*
 import clases.texto.*
 import clases.jugadores.*
