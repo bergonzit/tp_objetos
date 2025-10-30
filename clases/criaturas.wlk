@@ -6,9 +6,11 @@ class Criatura {
   const property vidaMax
   var property energia
   const property energiaMax
-  var velocidad
+  var property velocidad
   var movimientos //Lista de movimientos [4?]
   var property sprite //Dibujo de la criatura
+  var property posicion = game.origin()
+  var property offsetY
   var tipo //En teoria los tipos se hacen con otra clase
 
 
@@ -41,6 +43,8 @@ class Criatura {
         } 
     }
 
+  method image() = sprite
+  method position() = posicion
 
 } 
 
@@ -51,6 +55,7 @@ class Laoc inherits Criatura
  velocidad = 70,
  movimientos = null,
  sprite = "Laoc256.png",
+ offsetY = 4,
  tipo = fuego
  ){}
 
@@ -61,6 +66,7 @@ class Seedy inherits Criatura
  velocidad = 65,
  movimientos = null,
  sprite = "Seedy256.png",
+ offsetY = 10,
  tipo = planta
  ){}
 
@@ -71,6 +77,7 @@ class Lacui inherits Criatura
  velocidad = 75,
  movimientos = null,
  sprite = "Lacui256.png",
+ offsetY = 8,
  tipo = agua
  ){}
 
@@ -81,6 +88,7 @@ class Crigmal inherits Criatura
  velocidad = 70,
  movimientos = null,
  sprite = "Crigmal256.png",
+ offsetY = 4,
  tipo = normal
  ){}
 
@@ -91,6 +99,7 @@ class Argentum inherits Criatura
  velocidad = 50,
  movimientos = null,
  sprite = "Argentum256.png",
+ offsetY = 5,
  tipo = planta
  ){}
 
@@ -101,5 +110,6 @@ class Argentum inherits Criatura
  velocidad = 15, //Mantenerlo como el más rapido
  movimientos = null,
  sprite = "Soul256.png",
+ offsetY = 7,
  tipo = normal
  ){}

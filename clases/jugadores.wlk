@@ -1,3 +1,4 @@
+import clases.pantallaBatalla.*
 import clases.botones.*
 object jugador{
     var property index = 0
@@ -32,10 +33,29 @@ object jugador{
 }
 
 object cpu{
+    var property index = 0
     var property criaturas = []
     const property maxCriaturas = 4
 
     method agregarCriatura(criatura){
         criaturas.add(criatura)
+    }
+
+    method criaturaSeleccionada(){
+        return criaturas.get(index)
+    }
+
+    method cambiarCriatura(){
+        //Implementacion horrible, mejorar el codigo
+        self.criaturaAleatoria()
+    }
+
+    method criaturaAleatoria(){
+        var valor = 0.randomUpTo(criaturas.size()-1)
+        if (valor == index or !criaturas.get(valor).estaViva()){
+            self.criaturaAleatoria()
+        }else{
+            index = valor
+        }
     }
 }
