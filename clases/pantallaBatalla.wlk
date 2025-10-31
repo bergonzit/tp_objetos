@@ -19,7 +19,6 @@ object pantallaBatalla{
     method run(){
         self.inicializarBotones()
         self.habilitarControles()
-        //self.seleccionInicial()
         self.cambiarEstado(combate)
     }
 
@@ -71,11 +70,6 @@ object pantallaBatalla{
         keyboard.enter().onPressDo({estado.ejecutarAccion(index)})
     }
 
-    method seleccionInicial(){
-        self.cambiarEstado(rivalCambioCriatura)
-        self.cambiarEstado(cambioCriatura)
-    }
-
     method mover(valor){
         index += valor
         self.limitarIndex()
@@ -119,13 +113,10 @@ class Accion{
 object cambioCriatura{
 
     method actualizarEstado(){
-        pantallaBatalla.botonesCambioCriatura().forEach({boton => game.addVisual(boton)})
+        self.mostrarBotonesCambioCriatura()
         self.actualizarLimite()
-        seleccion.posicion(self.obtenerPosicion(0))
-        game.addVisual(seleccion)
-
+        self.mostrarSeleccion()
     }
-
 
     method actualizarLimite(){
         pantallaBatalla.limiteIndexActual(pantallaBatalla.botonesCambioCriatura().size() - 1)
@@ -138,7 +129,6 @@ object cambioCriatura{
     method ejecutarAccion(index){
         if (jugador.criaturas().get(index).estaViva()){
             self.limpiarVisuales()
-
             combate.acciones().add(new Accion(tipo = "cambio", accion = {
                 pantallaBatalla.ocultarCriatura(jugador)
                 jugador.index(index)
@@ -146,9 +136,8 @@ object cambioCriatura{
                 pantallaBatalla.mostrarCriatura(jugador)
                 mostrarMensaje.cambiarValores(["seleccionCriatura",jugador.criaturaSeleccionada().nombre()])
                 pantallaBatalla.cambiarEstado(mostrarMensaje)
-                
+                combate.cambiaCriatura(true)
             }))
-            combate.verificarVentaja()
             combate.siguienteTurno()
             pantallaBatalla.cambiarEstado(combate)
         }
@@ -158,12 +147,20 @@ object cambioCriatura{
         pantallaBatalla.botonesCambioCriatura().forEach({boton => game.removeVisual(boton)})
         game.removeVisual(seleccion)
     }
+
+    method mostrarBotonesCambioCriatura(){
+        pantallaBatalla.botonesCambioCriatura().forEach({boton => game.addVisual(boton)})
+    }
+
+    method mostrarSeleccion(){
+        seleccion.posicion(self.obtenerPosicion(0))
+        game.addVisual(seleccion)
+    }
 }
 
 object rivalCambioCriatura{
 
     method actualizarEstado(){
-        pantallaBatalla.ocultarCriatura(cpu)
         combate.acciones().add(new Accion(tipo = "cambio", accion = {
             pantallaBatalla.ocultarCriatura(cpu)
             cpu.cambiarCriatura()
@@ -171,20 +168,18 @@ object rivalCambioCriatura{
             pantallaBatalla.mostrarCriatura(cpu)//No se si es necesario ocultar y mostrar la criatura
             mostrarMensaje.cambiarValores(["rivalSeleccionCriatura",cpu.criaturaSeleccionada().nombre()])
             pantallaBatalla.cambiarEstado(mostrarMensaje)
-            combate.verificarVentaja()
-            
+            combate.cambiaCriatura(true)
         }))
         combate.siguienteTurno()
         pantallaBatalla.cambiarEstado(combate)
     }
-
 }
 
 object mostrarMensaje{
     var contador = 0
     //Valores: tiene toda la informacion necesaria para mostrar mensajes por pantalla => 0: indice diccionarioTextos, 1..n: Informacion extra  
     var valores = []
-    var texto = new Texto(posicion = game.at(2,24),limite = 140)
+    var texto = new Texto(posicion = game.at(4,22),limite = 140)
     var diccionarioTextos = new Dictionary()
     var listaTextos = []
     //var secuencia = null
@@ -217,6 +212,23 @@ object mostrarMensaje{
     method initialize(){
         diccionarioTextos.put("seleccionCriatura",{["Has seleccionado a " + valores.get(1)]})
         diccionarioTextos.put("rivalSeleccionCriatura",{["El rival a seleccionado a " + valores.get(1)]})
+        diccionarioTextos.put("ataque",{[valores.get(1) + " ha utilizado " + valores.get(2),self.resultadoAtaque(valores.get(3))]})
+    }
+
+    method resultadoAtaque(valor){
+        var resultado
+        if (valor == false){
+            resultado = "Pero fallo..."
+        } else {
+            if (valor == 2){
+                resultado = "Es super eficaz!"
+            } else if (valor == 1){
+                resultado = "Es eficaz"
+            } else {
+                resultado = "No es muy eficaz..."
+            }
+        }
+        return resultado
     }
 
     method obtenerPosicion(index){
@@ -228,7 +240,7 @@ object mostrarMensaje{
 
 object seleccionOpciones{
     method actualizarEstado(){
-
+        
     }
 
     method actualizarLimite(){
@@ -249,33 +261,34 @@ object seleccionOpciones{
 }
 
 object rivalSeleccionOpciones{
+    method actualizarEstado(){
+        const decision = cpu.tomarDecision()
+        if (decision == -1){
+            combate.acciones.add(new Accion(tipo = "cambio",accion = {pantallaBatalla.cambiarEstado(rivalCambioCriatura)}))
+        } else {
+            combate.acciones.add(new Accion(tipo = "cambio",accion = {rivalAtaque.seleccion(decision) pantallaBatalla.cambiarEstado(rivalAtaque)}))
+        }
+    }
+}
 
+object rivalAtaque{
+    var property seleccion = 0
+
+    method actualizarEstado(){
+        var acierta = cpu.criaturaSeleccionada().atacar(seleccion,jugador.criaturaSeleccionada())
+        mostrarMensaje.cambiarValores(["ataque",cpu.criaturaSeleccionada().nombre(),cpu.criaturaSeleccionada().movimientos().get(seleccion).nombre(),if (acierta) cpu.criaturaSeleccionada().movimientos().get(seleccion).tipo().obtenerMult(jugador.criaturaSeleccionada().tipo())])
+        pantallaBatalla.cambiarEstado(mostrarMensaje)
+    }
 }
 
 object combate{
     var turnoSecuencia = -4
     var property acciones = []
-    var ventajaJugador = false
+    var ventajaJugador = true
     var finCombate = null
+    var property cambiaCriatura = false
     method actualizarEstado(){
-        //Ventaja de cambio
-        /*if(acciones.get(1).tipo() == "cambio"){
-            acciones.reverse().forEach({accion => accion.accion().apply()})
-        } else {
-            acciones.forEach({accion => accion.accion().apply()})
-        }
-
-        if (finCombate == null){
-            if (ventajaJugador){
-                pantallaBatalla.cambiarEstado(seleccionOpciones)
-                pantallaBatalla.cambiarEstado(rivalSeleccionOpciones)
-            } else {
-                pantallaBatalla.cambiarEstado(rivalSeleccionOpciones)
-                pantallaBatalla.cambiarEstado(seleccionOpciones)
-            }
-            self.actualizarEstado()
-        }*/
-        
+        //Seleccion inicio del combate
         if (turnoSecuencia < 0){
             if (turnoSecuencia == -4){
                 pantallaBatalla.cambiarEstado(cambioCriatura)
@@ -285,18 +298,38 @@ object combate{
                 self.siguienteTurno()
             }
         }
-
+        //Aplicar acciones
         if (turnoSecuencia >= 0 and turnoSecuencia < 4){
             if (turnoSecuencia == 0){
                 self.siguienteTurno()
-                acciones.get(0).accion().apply()
+                acciones.get(if (self.ventajaDeCambio()) 1 else 0).accion().apply()
             }
             if (turnoSecuencia == 2){
                 self.siguienteTurno()
-                acciones.get(1).accion().apply()
+                acciones.get(if (self.ventajaDeCambio()) 0 else 1).accion().apply()
+            }
+        }
+        //Seleccion de acciones
+        if (turnoSecuencia >= 4 and turnoSecuencia < 8) {
+            if (cambiaCriatura) {
+                self.verificarVentaja()
+                cambiaCriatura = false
+            }
+            if (turnoSecuencia == 4){
+                acciones.clear()
+                self.siguienteTurno()
+                pantallaBatalla.cambiarEstado(if (ventajaJugador) cambioCriatura else rivalSeleccionOpciones)
+            }
+            if (turnoSecuencia == 6){
+                self.siguienteTurno()
+                pantallaBatalla.cambiarEstado(if (ventajaJugador) rivalCambioCriatura else seleccionOpciones)
             }
         }
 
+    }
+
+    method ventajaDeCambio(){
+        return acciones.get(1).tipo() == "cambio"
     }
 
     method siguienteTurno(){

@@ -7,13 +7,23 @@ class Movimiento {
     const property tipo
     
 
-    method accion(criaturaObjetivo) {
-        if(precision >= 0.randomUpTo(precision))
-            criaturaObjetivo.sacarVida(poder * tipo.obtenerMult(criaturaObjetivo.tipo()))
+    method accion(dueño,objetivo)
+    method aciertaAtaque(){
+        return precision >= 0.randomUpTo(100)
     }
 }
 
-const placaje = new Movimiento(
+class Ataque inherits Movimiento {
+    override method accion(emisor,receptor){
+        emisor.restarEnergia(costo)
+        const acierta = self.aciertaAtaque()
+        if( acierta )
+            receptor.sacarVida(poder * tipo.obtenerMult(receptor.tipo()))
+        return acierta
+    }
+}
+
+const placaje = new Ataque(
     nombre = "Placaje",
     costo = 10,
     poder = 15,

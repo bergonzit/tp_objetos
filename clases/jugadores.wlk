@@ -58,4 +58,22 @@ object cpu{
             index = valor
         }
     }
+
+    method tomarDecision(){
+        var intereses = [0]
+        intereses.add(100 - self.criaturaSeleccionada().porcentajeVidaRestante())
+        self.criaturaSeleccionada().movimientos().size().times({i =>
+            var suma = intereses.sum()
+            intereses.add(if (self.criaturaSeleccionada().tieneEnergia(i-1)) suma + 100 else suma)
+        })
+        var valorRandom = 1.randomUpTo(intereses.sum())
+        var decision
+        intereses.size()-1.times({i =>
+            if (valorRandom > intereses.get(i-1) and valorRandom <= intereses.get(i) ){
+                decision = i - 2
+            }
+        })
+        return decision
+    }
+
 }

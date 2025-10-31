@@ -84,6 +84,7 @@ object pantallaSeleccionCriatura{
         listaIndexes.forEach({index => 
             cpu.agregarCriatura(listaBotones.get(index).secuencia().apply())
         })
+        cpu.criaturas().forEach({criatura => criatura.esDeJugador(false)})
     }
 
     method obtenerListaIndexes(){
@@ -189,7 +190,7 @@ object informacionCriatura{
 
     method actualizarInformacion(criatura) {
         nombreCriatura.texto(criatura.nombre())
-        imagenCriatura.imagen(criatura.sprite())
+        imagenCriatura.imagen(criatura.sprite().get(0))
         imagen = criatura.tipo().imagen()
         nombreCriatura.mostrarTexto()
         nombreCriatura.centrar()
