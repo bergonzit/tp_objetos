@@ -14,18 +14,21 @@ class Movimiento {
 }
 
 class Ataque inherits Movimiento {
+    
     override method accion(emisor,receptor){
         emisor.restarEnergia(costo)
-        const acierta = self.aciertaAtaque()
-        if( acierta )
-            receptor.sacarVida(poder * tipo.obtenerMult(receptor.tipo()))
-        return acierta
+        const multiplicador = if(self.aciertaAtaque()) tipo.obtenerMult(receptor.tipo()) else 0
+        receptor.sacarVida(poder * multiplicador)
+        return multiplicador
+        }
+        
     }
-}
 
+//Movimientos
+//Los movimientos base (el primero de cada criatura, deben tener 0 de coste)
 const placaje = new Ataque(
     nombre = "Placaje",
-    costo = 10,
+    costo = 0,
     poder = 15,
     precision = 100,
     tipo = normal

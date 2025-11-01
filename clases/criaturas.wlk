@@ -7,6 +7,7 @@ class Criatura {
   var property energia
   const property energiaMax
   var property velocidad
+  var property ultimoMovimiento = null
   var movimientos //Lista de movimientos [4?]
   var property sprite //Dibujo de la criatura
   var property posicion = game.origin()
@@ -43,10 +44,14 @@ class Criatura {
   method porcentajeVidaRestante(){
     return  (100 * vida / vidaMax).round()
   }
-
   
-  method atacar(index, criaturaObjetivo) {
-    return movimientos.get(index).accion(self,criaturaObjetivo)
+  method atacar(movimiento, criaturaObjetivo) {
+    ultimoMovimiento = movimiento.nombre()
+    return movimiento.accion(self,criaturaObjetivo)
+  }
+
+  method movimientosDisponibles(){
+    return movimientos.filter({movimiento => movimiento.costo() <= energia})
   }
 
   method image() = sprite.get( if (esDeJugador) 1 else 0)
