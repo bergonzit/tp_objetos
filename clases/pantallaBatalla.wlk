@@ -14,6 +14,7 @@ object pantallaBatalla{
     var estado = null
     var property cumpleAccion = false
     var property acciones = []
+    var property stats = []
 
     //Botones
     var property botonesCambioCriatura = []
@@ -22,9 +23,26 @@ object pantallaBatalla{
 
     method run(){
         self.inicializarBotones()
+        self.mostrarStats()
         self.habilitarControles()
         self.ubicarCriaturas()
         self.iniciarCombate()
+    }
+
+    method mostrarStats(){
+        stats.add(new Stat(usuario = jugador, posicion = game.at(0,74),posicionTexto = game.at(3,87),posicionBarra = game.at(4,81)))
+        stats.add(new Stat(usuario = cpu, posicion = game.at(88,32), posicionTexto = game.at(101,45),posicionBarra = game.at(100,39)))
+        stats.forEach({stat => 
+            game.addVisual(stat)
+            game.addVisual(stat.barraVida())
+        })
+    }
+
+    method actualizarStats(){
+        //Tira excepcion la primera vez que se ejecuta
+        stats.forEach({stat =>
+            stat.actualizarCriatura()
+        })
     }
 
     method iniciarCombate(){
@@ -140,7 +158,7 @@ object pantallaBatalla{
 
 }
 
-//Seleccion y criaturas
+//Seleccion y varios
 object seleccion{
     var property esPequeño = true
     var property posicion = null
@@ -152,6 +170,52 @@ object seleccion{
 class Accion{
     var property tipo
     var property accion
+}
+
+class BarraDeVida{
+    var property posicion
+    var imagen = "vida100.png"
+    method image() = imagen
+    method position() = posicion
+
+    method actualizarVida(vida){
+        var vidaAprox = (vida/5).round() * 5
+        imagen = "vida" + vidaAprox + ".png"
+    }
+}
+
+class Stat{
+    
+    const usuario
+    var criaturasVivas = null
+    var imagen = null
+    const posicion
+    const posicionTexto
+    const posicionBarra
+    var property barraVida = new BarraDeVida(posicion = posicionBarra)
+    method image() = imagen
+    method position() = posicion
+    const texto = new Texto(posicion = posicionTexto ,limite = 100)
+
+    method initialize(){
+        self.actualizarImagen()
+        criaturasVivas = usuario.criaturasVivas()
+    }
+
+    method actualizarImagen(){
+        imagen = "stats" + usuario.nombre() + usuario.criaturasVivas() + ".png"
+    }
+
+    method actualizarCriatura(){
+        texto.texto(usuario.criaturaSeleccionada().nombre())
+        texto.mostrarTexto()
+        self.actualizarImagen()
+        self.actualizarVida()
+    }
+
+    method actualizarVida(){
+        barraVida.actualizarVida(usuario.criaturaSeleccionada().porcentajeVidaRestante())
+    }
 }
 
 //Estados
@@ -211,7 +275,7 @@ object mostrarMensaje{
         } else if (valor == 2){
             resultado = "Es super eficaz!"
         } else if (valor == 1){
-            resultado = "Es eficaz"
+            resultado = "Ha acertado"
         } else {
             resultado = "No es muy eficaz..."
         }
@@ -278,7 +342,7 @@ object seleccionCriatura{
     }
 
     method ejecutarAccion(index){
-        if (jugador.criaturas().get(index).estaViva()){
+        if (jugador.criaturas().get(index).estaViva() and jugador.criaturas().get(index) != jugador.criaturaSeleccionada()){
             self.limpiarVisuales()
             const secuencia = {
                 pantallaBatalla.ocultarCriatura(jugador)
@@ -408,6 +472,7 @@ object aplicarAccion{
         } else {
             pantallaBatalla.acciones().get(if (pantallaBatalla.ventajaDeCambio()) 0 else 1).accion().apply()
         }
+        pantallaBatalla.actualizarStats()
     }
         
 }

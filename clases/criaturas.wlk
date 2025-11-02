@@ -60,7 +60,7 @@ class Laoc inherits Criatura
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
  velocidad = 70,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,calentar,placaje,placaje],
  sprite = ["Laoc256.png","Laoc_B256.png"],
  offsetY = 4,
  tipo = fuego

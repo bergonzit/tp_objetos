@@ -1,6 +1,7 @@
 import clases.pantallaBatalla.*
 import clases.botones.*
 object jugador{
+    var property nombre = "Jugador"
     var property criaturaSeleccionada = null
     var property criaturas = []
     const property maxCriaturas = 4
@@ -31,6 +32,10 @@ object jugador{
         return cambia
     }
 
+    method criaturasVivas(){
+        return criaturas.filter({criatura => criatura.estaViva()}).size()
+    }
+
     method llamarMovimiento(index){
         return criaturaSeleccionada.atacar(criaturaSeleccionada.movimientos().get(index),cpu.criaturaSeleccionada())
     }
@@ -38,6 +43,7 @@ object jugador{
 }
 
 object cpu{
+    var property nombre = "Cpu"
     var property criaturaSeleccionada = null
     var property criaturas = []
     const property maxCriaturas = 4
@@ -52,7 +58,7 @@ object cpu{
 
 
     method cambiaCriatura(){
-        return if (self.criaturasVivas() >= 2) (0.randomUpTo(100) < (100 - self.criaturaSeleccionada().porcentajeVidaRestante())/2) else false
+        return if (self.criaturasVivas() >= 2) (0.randomUpTo(100) < (100 - self.criaturaSeleccionada().porcentajeVidaRestante())/4) else false
     }
 
     method criaturasVivas(){

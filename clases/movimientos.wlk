@@ -33,4 +33,11 @@ const placaje = new Ataque(
     precision = 100,
     tipo = normal
 )
+const calentar = new Ataque(
+    nombre = "Calentar",
+    costo = 15,
+    poder = 20,
+    precision = 80,
+    tipo = fuego
+)
 
