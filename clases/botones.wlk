@@ -8,8 +8,8 @@ import clases.texto.*
 import wollok.game.*
 
 class Boton{
-    var sprite
-    var property secuencia
+    var property sprite
+    var property secuencia = {}
     var property posicion = game.center()
     method position() = posicion 
     method image() = sprite
@@ -29,22 +29,7 @@ class BotonSeleccionCriatura inherits Boton(){
     var property criatura = secuencia.apply()
 }
 
-//class BotonCambioCriatura inherits Boton(sprite = "boton_chico.png"){
-//    var valorTexto
-//    var property texto = new Texto(posicion = game.at(posicion.x() + 20 ,posicion.y() + 5),limite = 38)
-//    //No usar initialize
-//    method initialize(){
-//        //game.addVisual(self)
-//        texto.texto(valorTexto)
-//        texto.mostrarTexto()
-//        texto.centrar()
-//    }
-//    override method press(){
-//        return secuencia
-//    } 
-//}
-
-
+//Botones acciones
 
 const botonJugar = new BotonOpcion(sprite = "boton1.png",secuencia = {gestorPantallas.cambiarPantalla(pantallaSeleccionCriatura)})
 const botonCombatir = new BotonOpcion(secuencia = {gestorPantallas.cambiarPantalla(pantallaBatalla)})

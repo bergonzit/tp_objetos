@@ -8,16 +8,12 @@ class Criatura {
   const property energiaMax
   var property velocidad
   var property ultimoMovimiento = null
-  var movimientos //Lista de movimientos [4?]
+  var property movimientos //Lista de movimientos [4?]
   var property sprite //Dibujo de la criatura
   var property posicion = game.origin()
   var property offsetY
-  var tipo 
+  var property tipo 
   var property esDeJugador = true
-
-  method tipo() {
-    return tipo
-    }
 
   method sacarVida(cantidad) {
     vida = vida - cantidad

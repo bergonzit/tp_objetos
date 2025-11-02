@@ -31,6 +31,10 @@ object jugador{
         return cambia
     }
 
+    method llamarMovimiento(index){
+        return criaturaSeleccionada.atacar(criaturaSeleccionada.movimientos().get(index),cpu.criaturaSeleccionada())
+    }
+
 }
 
 object cpu{

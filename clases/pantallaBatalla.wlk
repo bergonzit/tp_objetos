@@ -18,6 +18,7 @@ object pantallaBatalla{
     //Botones
     var property botonesCambioCriatura = []
     var property botonesAcciones = []
+    var property botonesMovimientos = []
 
     method run(){
         self.inicializarBotones()
@@ -29,6 +30,7 @@ object pantallaBatalla{
     method inicializarBotones(){
         self.inicializarBotonesCambioCriatura()
         self.inicializarBotonesAcciones()
+        self.inicializarBotonesMovimientos()
     }
 
     method inicializarBotonesCambioCriatura(){
@@ -52,6 +54,10 @@ object pantallaBatalla{
             sprite = "botonCambiarCriatura.png",
             posicion = game.at(64,0)
         ))
+    }
+
+    method inicializarBotonesMovimientos(){
+        4.times({i => botonesMovimientos.add(new BotonOpcion(posicion = self.posicionBotonesChicos(i-1)))})
     }
 
     method posicionBotonesChicos(i){
@@ -113,6 +119,12 @@ object pantallaBatalla{
     method asignarAcciones(){
         acciones.clear()
         self.cambiarEstado (if (self.verificarVentaja()) seleccionAccion else rivalSeleccionAccion )
+    }
+
+    method actualizarBotonesMovimientos(){
+        botonesMovimientos.size().times({i =>
+            botonesMovimientos.get(i-1).sprite("boton" + jugador.criaturaSeleccionada().movimientos().get(i-1).nombre() + ".png")
+        })
     }
 
 }
@@ -261,6 +273,7 @@ object seleccionCriatura{
             const secuencia = {
                 pantallaBatalla.ocultarCriatura(jugador)
                 jugador.cambiarCriatura(index)
+                pantallaBatalla.actualizarBotonesMovimientos()
                 pantallaBatalla.mostrarCriatura(jugador)
                 mostrarMensaje.cambiarValores(["seleccionCriatura",jugador.criaturaSeleccionada().nombre()])
                 pantallaBatalla.cambiarEstado(mostrarMensaje)
@@ -291,7 +304,51 @@ object seleccionCriatura{
 }
 
 object seleccionMovimiento{
+    method actualizarEstado(){
+        self.actualizarLimite()
+        self.mostrarBotonesMovimientos()
+        self.mostrarSeleccion()
+    }
 
+    method actualizarLimite(){
+        pantallaBatalla.index(0)
+        pantallaBatalla.limiteIndexActual(pantallaBatalla.botonesMovimientos().size() - 1)
+    }
+
+    method obtenerPosicion(index){
+        return pantallaBatalla.botonesMovimientos().get(index).posicion()
+    }
+
+    method ejecutarAccion(index){
+        if (jugador.criaturaSeleccionada().tieneEnergia(index)){
+            self.limpiarVisuales()
+            const secuencia = {
+                mostrarMensaje.cambiarValores(["ataque",jugador.criaturaSeleccionada().nombre(),jugador.llamarMovimiento(index),jugador.criaturaSeleccionada().ultimoMovimiento()])
+                pantallaBatalla.cambiarEstado(mostrarMensaje)
+            }
+            pantallaBatalla.acciones().add(new Accion(tipo = "movimiento", accion = secuencia))
+            if (pantallaBatalla.acciones().size() == 1){
+                pantallaBatalla.cambiarEstado(rivalSeleccionAccion)
+            } else {
+                pantallaBatalla.cambiarEstado(aplicarAccion)
+            }
+        }
+    }
+
+    method limpiarVisuales(){
+        pantallaBatalla.botonesMovimientos().forEach({boton => game.removeVisual(boton)})
+        game.removeVisual(seleccion)
+    }
+
+    method mostrarBotonesMovimientos(){
+        pantallaBatalla.botonesMovimientos().forEach({boton => game.addVisual(boton)})
+    }
+
+    method mostrarSeleccion(){
+        seleccion.esPequeño(true)
+        seleccion.posicion(self.obtenerPosicion(0))
+        game.addVisual(seleccion)
+    }
 }
 
 object rivalSeleccionAccion {
