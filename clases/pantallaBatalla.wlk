@@ -35,6 +35,7 @@ object pantallaBatalla{
         stats.forEach({stat => 
             game.addVisual(stat)
             game.addVisual(stat.barraVida())
+            game.addVisual(stat.barraEnergia())
         })
     }
 
@@ -172,15 +173,16 @@ class Accion{
     var property accion
 }
 
-class BarraDeVida{
+class Barra{
+    const tipo
     var property posicion
-    var imagen = "vida100.png"
+    var imagen = tipo + "100.png"
     method image() = imagen
     method position() = posicion
 
-    method actualizarVida(vida){
-        var vidaAprox = (vida/5).round() * 5
-        imagen = "vida" + vidaAprox + ".png"
+    method actualizarBarra(valor){
+        const valorAprox = (valor/5).round() * 5
+        imagen = tipo + valorAprox + ".png"
     }
 }
 
@@ -192,7 +194,8 @@ class Stat{
     const posicion
     const posicionTexto
     const posicionBarra
-    var property barraVida = new BarraDeVida(posicion = posicionBarra)
+    var property barraVida = new Barra(tipo = "vida",posicion = posicionBarra)
+    var property barraEnergia = new Barra(tipo = "mana",posicion = game.at(posicionBarra.x(),posicionBarra.y()-1))
     method image() = imagen
     method position() = posicion
     const texto = new Texto(posicion = posicionTexto ,limite = 100)
@@ -210,11 +213,12 @@ class Stat{
         texto.texto(usuario.criaturaSeleccionada().nombre())
         texto.mostrarTexto()
         self.actualizarImagen()
-        self.actualizarVida()
+        self.actualizarBarras()
     }
 
-    method actualizarVida(){
-        barraVida.actualizarVida(usuario.criaturaSeleccionada().porcentajeVidaRestante())
+    method actualizarBarras(){
+        barraVida.actualizarBarra(usuario.criaturaSeleccionada().porcentajeVidaRestante())
+        barraEnergia.actualizarBarra(usuario.criaturaSeleccionada().porcentajeEnergiaRestante())
     }
 }
 

@@ -37,6 +37,10 @@ class Criatura {
     return vida > 0
   }
 
+  method porcentajeEnergiaRestante(){
+    return  (100 * energia / energiaMax).round()
+  }
+
   method porcentajeVidaRestante(){
     return  (100 * vida / vidaMax).round()
   }
