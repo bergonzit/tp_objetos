@@ -119,6 +119,9 @@ object pantallaBatalla{
     method mover(valor){
         index += valor
         self.limitarIndex()
+        try {
+            estado.cambiarDescripcion(index)
+        } catch e : MessageNotUnderstoodException console.println("El estado " + estado + " no cuenta con el metodo Cambiar Descripcion!")
     }
 
     method limitarIndex(){
@@ -139,7 +142,7 @@ object pantallaBatalla{
     }
 
     method ventajaDeCambio(){
-        return acciones.get(1).tipo() == "cambio"
+        return acciones.get(1).tipo() == "cambio" and acciones.get(0).tipo() != "derrota"
     }
 
     method verificarVentaja(){
@@ -155,6 +158,33 @@ object pantallaBatalla{
         botonesMovimientos.size().times({i =>
             botonesMovimientos.get(i-1).sprite("boton" + jugador.criaturaSeleccionada().movimientos().get(i-1).nombre() + ".png")
         })
+    }
+
+    method verificarSaludCriaturas(){
+        try{
+            self.verificarSaludCriaturasUsuario(cpu)
+            self.verificarSaludCriaturasUsuario(jugador)
+        }catch e : MessageNotUnderstoodException{console.println("Inicio del combate")}
+    }
+
+    method verificarSaludCriaturasUsuario(usuario){
+        if (!usuario.criaturaSeleccionada().estaViva() and acciones.get(0).tipo() != "derrota"){
+                self.limpiarAcciones()
+                acciones.add(new Accion(tipo = "derrota",accion = {
+                    mostrarMensaje.cambiarValores(["fueraDeCombate",usuario.criaturaSeleccionada().nombre()])
+                    self.cambiarEstado(mostrarMensaje)
+                }))
+                if (usuario.criaturasVivas() != 0){
+                    self.cambiarEstado(if (usuario == cpu) rivalSeleccionCriatura else seleccionCriatura)
+                } else {
+                    self.cambiarEstado(terminarCombate)
+                }
+            }
+    }
+
+    method limpiarAcciones(){
+        acciones.clear()
+        cumpleAccion = false
     }
 
 }
@@ -228,7 +258,7 @@ object mostrarMensaje{
     var contador = 0
     //Valores: tiene toda la informacion necesaria para mostrar mensajes por pantalla => 0: indice diccionarioTextos, 1..n: Informacion extra  
     var valores = []
-    var texto = new Texto(posicion = game.at(4,22),limite = 140)
+    var property texto = new Texto(posicion = game.at(4,22),limite = 56)
     var diccionarioTextos = new Dictionary()
     var listaTextos = []
 
@@ -249,27 +279,47 @@ object mostrarMensaje{
             texto.texto(listaTextos.get(contador))
             texto.mostrarTexto()
             contador += 1
-        } else {
-            texto.limite(56)
-            texto.texto("Seleccione una opcion")
-            texto.mostrarTexto()
-            //Posibilidades de seguimiento:
-            //Otro mensaje
-            //Seleccion del jugador o rival
+        } else if (valores.get(0) != "victoria" and valores.get(0) != "derrota"){
+            self.mostrarTextoBase()
             if (!pantallaBatalla.cumpleAccion()) {
                 pantallaBatalla.cumpleAccion(true)
                 pantallaBatalla.cambiarEstado(aplicarAccion)
             } else {
                 pantallaBatalla.cumpleAccion(false)
-                pantallaBatalla.asignarAcciones()
+                pantallaBatalla.cambiarEstado(aplicarAccion)
             }
+        }  
+    }
+
+    method mostrarTextoBase(){
+            texto.limite(56)
+            texto.texto("Seleccione una opcion")
+            texto.mostrarTexto()
         }
+
+    method mostrarStatsCriatura(index){
+        const criatura = jugador.criaturas().get(index)
+        texto.texto("Tipo:" + criatura.tipo().nombre() +
+         " Vida:" + criatura.vida() + "/" + criatura.vidaMax() +
+         " Mana:" + criatura.energia() + "/" + criatura.energiaMax())
+        texto.mostrarTexto()
+    }
+
+    method mostrarStatsMovimiento(index){
+        const movimiento = jugador.criaturaSeleccionada().movimientos().get(index)
+        texto.texto("Tipo: " + movimiento.tipo().nombre() +
+         " Poder: " + movimiento.poder() +
+         " Costo: " + movimiento.costo())
+        texto.mostrarTexto()
     }
 
     method initialize(){
         diccionarioTextos.put("seleccionCriatura",{["Has seleccionado a " + valores.get(1)]})
         diccionarioTextos.put("rivalSeleccionCriatura",{["El rival a seleccionado a " + valores.get(1)]})
         diccionarioTextos.put("ataque",{[valores.get(1) + " ha utilizado " + valores.get(3),self.resultadoAtaque(valores.get(2))]})
+        diccionarioTextos.put("fueraDeCombate",{[valores.get(1) + " ha quedado fuera de combate"]})
+        diccionarioTextos.put("victoria",{["El rival se ha quedado sin criaturas habiles","Has ganado el combate!"]})
+        diccionarioTextos.put("derrota",{["Te has quedado sin criaturas habiles","Perdiste el combate..."]})
     }
 
     method resultadoAtaque(valor){
@@ -285,7 +335,6 @@ object mostrarMensaje{
         }
         return resultado
     }
-
 
 }
 
@@ -334,6 +383,7 @@ object seleccionCriatura{
         self.actualizarLimite()
         self.mostrarBotonesCambioCriatura()
         self.mostrarSeleccion()
+        self.cambiarDescripcion(0)
     }
 
     method actualizarLimite(){
@@ -379,6 +429,10 @@ object seleccionCriatura{
         seleccion.posicion(self.obtenerPosicion(0))
         game.addVisual(seleccion)
     }
+
+    method cambiarDescripcion(index){
+        mostrarMensaje.mostrarStatsCriatura(index)
+    }
 }
 
 object seleccionMovimiento{
@@ -386,6 +440,7 @@ object seleccionMovimiento{
         self.actualizarLimite()
         self.mostrarBotonesMovimientos()
         self.mostrarSeleccion()
+        self.cambiarDescripcion(0)
     }
 
     method actualizarLimite(){
@@ -426,6 +481,10 @@ object seleccionMovimiento{
         seleccion.esPequeño(true)
         seleccion.posicion(self.obtenerPosicion(0))
         game.addVisual(seleccion)
+    }
+
+    method cambiarDescripcion(index){
+        mostrarMensaje.mostrarStatsMovimiento(index)
     }
 }
 
@@ -471,12 +530,24 @@ object rivalSeleccionMovimiento{
 
 object aplicarAccion{
     method actualizarEstado(){
-        if (!pantallaBatalla.cumpleAccion()){
-            pantallaBatalla.acciones().get(if (pantallaBatalla.ventajaDeCambio()) 1 else 0).accion().apply()
-        } else {
+        pantallaBatalla.verificarSaludCriaturas()
+        if (pantallaBatalla.cumpleAccion()){
             pantallaBatalla.acciones().get(if (pantallaBatalla.ventajaDeCambio()) 0 else 1).accion().apply()
+        } else if (!(pantallaBatalla.estadoPrevio() == mostrarMensaje)){
+            pantallaBatalla.acciones().get(if (pantallaBatalla.ventajaDeCambio()) 1 else 0).accion().apply()
+        } else{
+            pantallaBatalla.asignarAcciones()
         }
         pantallaBatalla.actualizarStats()
     }
         
+}
+
+object terminarCombate{
+    method actualizarEstado(){
+        pantallaBatalla.acciones().add(new Accion(tipo = "fin",accion = {
+            mostrarMensaje.cambiarValores([if (cpu.criaturasVivas() == 0) "victoria" else "derrota"])
+            pantallaBatalla.cambiarEstado(mostrarMensaje)
+        }))
+    }
 }

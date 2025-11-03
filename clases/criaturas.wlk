@@ -118,7 +118,7 @@ class Argentum inherits Criatura
  (nombre = "Soul",
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
- velocidad = 15, //Mantenerlo como el más rapido
+ velocidad = 100,
  movimientos = [placaje,placaje,placaje,placaje],
  sprite = ["Soul256.png","Soul_B256.png"],
  offsetY = 7,

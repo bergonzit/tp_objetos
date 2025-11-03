@@ -53,7 +53,7 @@ class Texto{
 
     method revisionExcesoDeLimite(lista){
         if ((lista.size() * desplazamientoPromedio + x) > limite){
-            y -= 8
+            y -= 9
             self.agregarLongitud() 
             x = 0
         }
