@@ -103,6 +103,17 @@ class Crigmal inherits Criatura
  tipo = normal
  ){}
 
+class Emblem inherits Criatura 
+(nombre = "Emblem",
+ vidaMax = 140, vida = vidaMax,
+ energiaMax = 330, energia = energiaMax,
+ velocidad = 60,
+ movimientos = [placaje,calentar,placaje,placaje],
+ sprite = ["Emblem256.png","Emblem_B256.png"],
+ offsetY = 5,
+ tipo = fuego
+ ){}
+
 class Argentum inherits Criatura 
 (nombre = "Argentum",
  vidaMax = 230, vida = vidaMax,

@@ -8,7 +8,7 @@ import wollok.game.*
 
 object pantallaSeleccionCriatura{
     var property fondo = "fondo2.png"
-    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonCrigmal,botonArgentum,botonSoul]
+    const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonCrigmal,botonEmblem,botonArgentum,botonSoul]
     var textoBotonCombatir = new Texto(posicion = game.at(48,9),limite = 90)
 
     method run(){
