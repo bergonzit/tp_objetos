@@ -41,5 +41,8 @@ const botonSeedy = new BotonSeleccionCriatura(sprite = "Seedy128.png",secuencia 
 const botonLacui = new BotonSeleccionCriatura(sprite = "Lacui128.png",secuencia = {new Lacui()})
 const botonCrigmal = new BotonSeleccionCriatura(sprite = "Crigmal128.png",secuencia = {new Crigmal()})
 const botonEmblem = new BotonSeleccionCriatura(sprite = "Emblem128.png",secuencia = {new Emblem()})
+const botonBloo = new BotonSeleccionCriatura(sprite = "Bloo128.png",secuencia = {new Bloo()})
 const botonArgentum = new BotonSeleccionCriatura(sprite = "Argentum128.png",secuencia = {new Argentum()})
 const botonSoul = new BotonSeleccionCriatura(sprite = "Soul128.png",secuencia = {new Soul()})
+const botonLeefo = new BotonSeleccionCriatura(sprite = "Leefo128.png",secuencia = {new Leefo()})
+const botonOuroboros = new BotonSeleccionCriatura(sprite = "Ouroboros128.png",secuencia = {new Ouroboros()})

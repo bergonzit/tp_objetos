@@ -70,17 +70,6 @@ class Laoc inherits Criatura
  tipo = fuego
  ){}
 
-class Seedy inherits Criatura 
-(nombre = "Seedy",
- vidaMax = 160, vida = vidaMax,
- energiaMax = 280, energia = energiaMax,
- velocidad = 65,
- movimientos = [placaje,placaje,placaje,placaje],
- sprite = ["Seedy256.png","Seedy_B256.png"],
- offsetY = 10,
- tipo = planta
- ){}
-
 class Lacui inherits Criatura 
 (nombre = "Lacui",
  vidaMax = 140, vida = vidaMax,
@@ -90,6 +79,17 @@ class Lacui inherits Criatura
  sprite = ["Lacui256.png","Lacui_B256.png"],
  offsetY = 8,
  tipo = agua
+ ){}
+
+class Seedy inherits Criatura 
+(nombre = "Seedy",
+ vidaMax = 160, vida = vidaMax,
+ energiaMax = 280, energia = energiaMax,
+ velocidad = 65,
+ movimientos = [placaje,placaje,placaje,placaje],
+ sprite = ["Seedy256.png","Seedy_B256.png"],
+ offsetY = 10,
+ tipo = planta
  ){}
 
 class Crigmal inherits Criatura 
@@ -114,6 +114,17 @@ class Emblem inherits Criatura
  tipo = fuego
  ){}
 
+class Bloo inherits Criatura 
+(nombre = "Bloo",
+ vidaMax = 160, vida = vidaMax,
+ energiaMax = 280, energia = energiaMax,
+ velocidad = 60,
+ movimientos = [placaje,placaje,placaje,placaje],
+ sprite = ["Bloo256.png","Bloo_B256.png"],
+ offsetY = 6,
+ tipo = agua
+ ){}
+
 class Argentum inherits Criatura 
 (nombre = "Argentum",
  vidaMax = 230, vida = vidaMax,
@@ -125,7 +136,8 @@ class Argentum inherits Criatura
  tipo = planta
  ){}
 
- class Soul inherits Criatura
+
+class Soul inherits Criatura
  (nombre = "Soul",
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
@@ -133,5 +145,27 @@ class Argentum inherits Criatura
  movimientos = [placaje,placaje,placaje,placaje],
  sprite = ["Soul256.png","Soul_B256.png"],
  offsetY = 7,
+ tipo = normal
+ ){}
+
+class Leefo inherits Criatura 
+(nombre = "Leefo",
+ vidaMax = 150, vida = vidaMax,
+ energiaMax = 300, energia = energiaMax,
+ velocidad = 65,
+ movimientos = [placaje,placaje,placaje,placaje],
+ sprite = ["Leefo256.png","Leefo_B256.png"],
+ offsetY = 7,
+ tipo = planta
+ ){}
+
+class Ouroboros inherits Criatura
+ (nombre = "Ouroboros",
+ vidaMax = 140, vida = vidaMax,
+ energiaMax = 350, energia = energiaMax,
+ velocidad = 70,
+ movimientos = [placaje,placaje,placaje,placaje],
+ sprite = ["Ouroboros256.png","Ouroboros_B256.png"],
+ offsetY = 4,
  tipo = normal
  ){}
