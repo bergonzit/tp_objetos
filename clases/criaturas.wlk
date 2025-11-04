@@ -1,4 +1,5 @@
 import tipos.*
+import comparacion.*
 
 class Criatura {
   var property nombre
@@ -11,14 +12,12 @@ class Criatura {
   var property sprite //Dibujo de la criatura
   var tipo //En teoria los tipos se hacen con otra clase
 
-  method tomarValorMayorEntreCeroYoOtro(valorAComparar) = valorAComparar.max(0)
-
   method sacarVida(cantidad) {
-    vida = self.tomarValorMayorEntreCeroYoOtro(vida - cantidad)
+    vida = valoresComparables.tomarValorMayorEntreCeroYoOtro(vida - cantidad)
     }
 
   method restarEnergia(cantidad) {
-      energia = self.tomarValorMayorEntreCeroYoOtro(energia - cantidad)
+      energia = valoresComparables.tomarValorMayorEntreCeroYoOtro(energia - cantidad)
     }
 
   method estaViva() = vida > 0

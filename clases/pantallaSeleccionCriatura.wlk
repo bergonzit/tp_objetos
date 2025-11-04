@@ -73,6 +73,7 @@ object seleccion{
         posicion = posiciones.get(index)
     }
     method mover(valor) {
+        
         index += valor
         if(index < 0) {
             index = 0
