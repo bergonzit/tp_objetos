@@ -193,7 +193,7 @@ object pantallaBatalla{
 object seleccion{
     var property esPequeño = true
     var property posicion = null
-    var imagen = ["seleccion_chica.png","seleccion_larga.png"]
+    const imagen = ["seleccion_chica.png", "seleccion_larga.png"]
     method image() = imagen.get( if (esPequeño) 0 else 1)
     method position() = posicion
 }
@@ -259,7 +259,7 @@ object mostrarMensaje{
     //Valores: tiene toda la informacion necesaria para mostrar mensajes por pantalla => 0: indice diccionarioTextos, 1..n: Informacion extra  
     var valores = []
     var property texto = new Texto(posicion = game.at(4,22),limite = 56)
-    var diccionarioTextos = new Dictionary()
+    const diccionarioTextos = new Dictionary()
     var listaTextos = []
 
     method cambiarValores(lista){

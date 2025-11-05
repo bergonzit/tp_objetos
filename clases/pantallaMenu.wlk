@@ -6,7 +6,7 @@ import clases.fondo.fondo
 import clases.texto.*
 object pantallaMenu {
     var property fondo = "fondo.png"
-    var boton = botonJugar
+    const boton = botonJugar
     method run(){  
         //Posiciona los botones
 

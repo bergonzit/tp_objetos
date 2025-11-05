@@ -2,10 +2,10 @@ class Texto{
     var property limite //Que tanto se puede extender el texto de longitud en celdas. Si se excede continua hacia abajo
     var property caracteres = []
     var property texto = ""
-    var diccionario = new Dictionary()
+    const diccionario = new Dictionary()
     const desplazamientoPromedio = 4
     const desplazamientoEspacio = 3
-    var posicion
+    const posicion
     //Variables para metodos
     var x = 0
     var y = 0
@@ -16,7 +16,7 @@ class Texto{
     method mostrarTexto(){
         self.limpiarTexto()
         self.resetearVariables()
-        var listasCaracteres = self.separarCaracteres() //[[l,i,s,t,a,s],[d,e],[c,a,r,a,c,t,e,r,e,s]]
+        const listasCaracteres = self.separarCaracteres() //[[l,i,s,t,a,s],[d,e],[c,a,r,a,c,t,e,r,e,s]]
         listasCaracteres.forEach({listaCaracteres => self.agregarCaracteres(listaCaracteres)})
         self.agregarLongitud()
     }
@@ -176,7 +176,7 @@ class Texto{
 }
 
 class Caracter{
-    var imagen
+    const imagen
     var property posicion
     method image() = imagen
     method position() = posicion

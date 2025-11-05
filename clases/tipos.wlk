@@ -19,10 +19,10 @@ object planta inherits Tipo(nombre = "Planta", multFuego = 0.5, multAgua = 2, mu
 object normal inherits Tipo(nombre = "Normal", multFuego = 1, multAgua = 1, multPlanta = 1) {}*/
 
 class Tipo {
-  var property nombre
-  var property imagen
-  var ventajas = []
-  var desventajas = []
+  const property nombre
+  const property imagen
+  const ventajas = []
+  const desventajas = []
   
   method obtenerMult(otroTipo) {
     if (ventajas.contains(otroTipo)) {

@@ -9,7 +9,7 @@ import wollok.game.*
 object pantallaSeleccionCriatura{
     var property fondo = "fondo2.png"
     const property listaBotones = [botonLaoc,botonLacui,botonSeedy,botonCrigmal,botonEmblem,botonBloo,botonArgentum,botonSoul,botonCombust,botonPuff,botonLeefo,botonOuroboros]
-    var textoBotonCombatir = new Texto(posicion = game.at(48,9),limite = 90)
+    const textoBotonCombatir = new Texto(posicion = game.at(48, 9), limite = 90)
 
     method run(){
         self.colocarBotones()
@@ -39,7 +39,6 @@ object pantallaSeleccionCriatura{
     }
 
     method actualizarInformacionCombatir(){
-        var texto = ""
         if (!self.criaturasCompletas()){
             textoBotonCombatir.texto(jugador.criaturas().size().toString() + "/" + jugador.maxCriaturas().toString())
         } else {
@@ -80,7 +79,7 @@ object pantallaSeleccionCriatura{
     }
 
     method asignarCriaturasRivales(){
-        var listaIndexes = self.obtenerListaIndexes()
+        const listaIndexes = self.obtenerListaIndexes()
         listaIndexes.forEach({index => 
             cpu.agregarCriatura(listaBotones.get(index).secuencia().apply())
         })
@@ -97,7 +96,7 @@ object seleccion{
     var posicion = null
     var property posiciones = []
     var property index = 0
-    var marcas = []
+    const marcas = []
     var property criaturaActual = null
     var property ultimoBoton = false
     var property imagen = ["seleccion128.png","seleccion_boton.png"]
@@ -174,18 +173,17 @@ object seleccion{
 }
 
 class MarcaSeleccion{
-    var posicion
+    const posicion
     var property index
     method image() = "marca128.png"
     method position() = posicion
 }
 
 object informacionCriatura{
-    var nombreCriatura = new Texto(posicion = game.at(120,81),limite = 90)
+    const nombreCriatura = new Texto(posicion = game.at(120,81),limite = 90)
     var imagen = ""
-    var posicion = game.at(109,7)
     method image() = imagen
-    method position() = posicion
+    method position() = game.at(109,7)
 
 
     method actualizarInformacion(criatura) {
