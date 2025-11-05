@@ -148,6 +148,28 @@ class Soul inherits Criatura
  tipo = normal
  ){}
 
+class Puff inherits Criatura 
+(nombre = "Puff",
+ vidaMax = 140, vida = vidaMax,
+ energiaMax = 330, energia = energiaMax,
+ velocidad = 65,
+ movimientos = [placaje,placaje,placaje,placaje],
+ sprite = ["Puff256.png","Puff_B256.png"],
+ offsetY = 9,
+ tipo = agua
+ ){}
+
+class Combust inherits Criatura 
+(nombre = "Combust",
+ vidaMax = 160, vida = vidaMax,
+ energiaMax = 300, energia = energiaMax,
+ velocidad = 75,
+ movimientos = [placaje,calentar,placaje,placaje],
+ sprite = ["Combust256.png","Combust_B256.png"],
+ offsetY = 5,
+ tipo = fuego
+ ){}
+
 class Leefo inherits Criatura 
 (nombre = "Leefo",
  vidaMax = 150, vida = vidaMax,

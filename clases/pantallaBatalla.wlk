@@ -7,7 +7,7 @@ import clases.gestorPantallas.*
 import clases.botones.*
 
 object pantallaBatalla{
-    var property fondo = "fondo3.png"
+    var property fondo = "fondoBatalla.png"
     var property index = 0
     var property limiteIndexActual = 0
     var property estadoPrevio = null
@@ -112,7 +112,7 @@ object pantallaBatalla{
     }
 
     method ubicarCriaturas(){
-        cpu.criaturas().forEach({criatura => criatura.posicion(game.at(100,60-criatura.offsetY()))})
+        cpu.criaturas().forEach({criatura => criatura.posicion(game.at(100,66-criatura.offsetY()))})
         jugador.criaturas().forEach({criatura => criatura.posicion(game.at(12,44-criatura.offsetY()))})
     }
 
