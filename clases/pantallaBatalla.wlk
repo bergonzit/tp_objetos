@@ -47,15 +47,7 @@ object pantallaBatalla{
     }
 
     method iniciarCombate(){
-        //Repeticion de codigo, mejorar
-        const secuencia = {
-            self.ocultarCriatura(cpu)
-            cpu.cambiarCriatura()
-            self.mostrarCriatura(cpu)
-            mostrarMensaje.cambiarValores(["rivalSeleccionCriatura",cpu.criaturaSeleccionada().nombre()])
-            self.cambiarEstado(mostrarMensaje)
-        }
-        self.acciones().add(new Accion(tipo = "cambio", accion = secuencia))
+        self.acciones().add(new Accion(tipo = "cambio", accion = rivalSeleccionCriatura.secuencia()))
         self.cambiarEstado(seleccionCriatura)
     }
 
@@ -130,7 +122,10 @@ object pantallaBatalla{
         } else if (index > limiteIndexActual){
             index = limiteIndexActual
         }
-        seleccion.posicion(estado.obtenerPosicion(index))
+        try{
+            seleccion.posicion(estado.obtenerPosicion(index))
+        }catch e : MessageNotUnderstoodException{console.println("El estado " + estado + " no utiliza el index")}
+        
     }
 
     method mostrarCriatura(dueño){
@@ -495,14 +490,14 @@ object rivalSeleccionAccion {
 }
 
 object rivalSeleccionCriatura{
-    method actualizarEstado(){
-        const secuencia = {
+    const property secuencia = {
             pantallaBatalla.ocultarCriatura(cpu)
             cpu.cambiarCriatura()
             pantallaBatalla.mostrarCriatura(cpu)
             mostrarMensaje.cambiarValores(["rivalSeleccionCriatura",cpu.criaturaSeleccionada().nombre()])
             pantallaBatalla.cambiarEstado(mostrarMensaje)
         }
+    method actualizarEstado(){
         pantallaBatalla.acciones().add(new Accion(tipo = "cambio", accion = secuencia))
         if (pantallaBatalla.acciones().size() == 1){
             pantallaBatalla.cambiarEstado(seleccionAccion)
