@@ -39,17 +39,13 @@ object pantallaSeleccionCriatura{
     }
 
     method actualizarInformacionCombatir(){
-        if (!self.criaturasCompletas()){
+        if (!jugador.criaturasCompletas()){
             textoBotonCombatir.texto(jugador.criaturas().size().toString() + "/" + jugador.maxCriaturas().toString())
         } else {
             textoBotonCombatir.texto("Iniciar Combate")
         }
         textoBotonCombatir.mostrarTexto()
         textoBotonCombatir.centrar()
-    }
-
-    method criaturasCompletas(){
-        return jugador.criaturas().size() == jugador.maxCriaturas()
     }
 
     method ubicarBotonesCriaturas(){
@@ -113,7 +109,7 @@ object seleccion{
         informacionCriatura.actualizarInformacion(criaturaActual)
     }
     method accionarBoton(){
-        if (ultimoBoton and pantallaSeleccionCriatura.criaturasCompletas()){
+        if (ultimoBoton and jugador.criaturasCompletas()){
             pantallaSeleccionCriatura.iniciarCambioPantalla()
         }else {
             self.seleccionarBoton()

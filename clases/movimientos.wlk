@@ -32,7 +32,6 @@ class Curacion inherits Movimiento(tipo = curacion) {
 }
 
 //Movimientos
-//Los movimientos base (el primero de cada criatura, deben tener 0 de coste)
 const placaje = new Ataque(
     nombre = "Placaje",
     costo = 0,

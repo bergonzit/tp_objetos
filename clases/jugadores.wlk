@@ -32,6 +32,10 @@ object jugador{
         return cambia
     }
 
+    method criaturasCompletas(){
+        return criaturas.size() == maxCriaturas
+    }
+
     method criaturasVivas(){
         return criaturas.filter({criatura => criatura.estaViva()}).size()
     }
