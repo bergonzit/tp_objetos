@@ -17,10 +17,8 @@ class Criatura {
 
   method sacarVida(cantidad) {
     vida = vida - cantidad
-    if (vida < 0) {
-      vida = 0
-      }
-    }
+    self.controlarVida()
+  }
 
   method tieneEnergia(index){
     return energia >= movimientos.get(index).costo()
@@ -35,6 +33,14 @@ class Criatura {
 
   method estaViva() {
     return vida > 0
+  }
+
+  method controlarVida(){
+    if (vida < 0) {
+      vida = 0
+      } else if (vida > vidaMax){
+        vida = vidaMax
+      }
   }
 
   method porcentajeEnergiaRestante(){
@@ -64,7 +70,7 @@ class Laoc inherits Criatura
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
  velocidad = 70,
- movimientos = [placaje,calentar,placaje,placaje],
+ movimientos = [placaje,calentar,llamarada,concentrarTemperatura],
  sprite = ["Laoc256.png","Laoc_B256.png"],
  offsetY = 4,
  tipo = fuego
@@ -75,7 +81,7 @@ class Lacui inherits Criatura
  vidaMax = 140, vida = vidaMax,
  energiaMax = 320, energia = energiaMax,
  velocidad = 75,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,pistolaDeBurbujas,rociar,condensar],
  sprite = ["Lacui256.png","Lacui_B256.png"],
  offsetY = 8,
  tipo = agua
@@ -86,7 +92,7 @@ class Seedy inherits Criatura
  vidaMax = 160, vida = vidaMax,
  energiaMax = 280, energia = energiaMax,
  velocidad = 65,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,latigoDeRaiz,germinar,corteDeHojas],
  sprite = ["Seedy256.png","Seedy_B256.png"],
  offsetY = 10,
  tipo = planta
@@ -97,7 +103,7 @@ class Crigmal inherits Criatura
  vidaMax = 170, vida = vidaMax,
  energiaMax = 270, energia = energiaMax,
  velocidad = 70,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,cristalizar,hazDeLuz,golpeVeloz],
  sprite = ["Crigmal256.png","Crigmal_B256.png"],
  offsetY = 4,
  tipo = normal
@@ -108,7 +114,7 @@ class Emblem inherits Criatura
  vidaMax = 140, vida = vidaMax,
  energiaMax = 330, energia = energiaMax,
  velocidad = 60,
- movimientos = [placaje,calentar,placaje,placaje],
+ movimientos = [placaje,tostar,fundir,pulverizar],
  sprite = ["Emblem256.png","Emblem_B256.png"],
  offsetY = 5,
  tipo = fuego
@@ -119,7 +125,7 @@ class Bloo inherits Criatura
  vidaMax = 160, vida = vidaMax,
  energiaMax = 280, energia = energiaMax,
  velocidad = 60,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,diluvio,condensar,rociar],
  sprite = ["Bloo256.png","Bloo_B256.png"],
  offsetY = 6,
  tipo = agua
@@ -127,10 +133,10 @@ class Bloo inherits Criatura
 
 class Argentum inherits Criatura 
 (nombre = "Argentum",
- vidaMax = 230, vida = vidaMax,
+ vidaMax = 200, vida = vidaMax,
  energiaMax = 250, energia = energiaMax,
  velocidad = 50,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,latigoDeRaiz,rayoSolar,enredar],
  sprite = ["Argentum256.png","Argentum_B256.png"],
  offsetY = 5,
  tipo = planta
@@ -142,7 +148,7 @@ class Soul inherits Criatura
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
  velocidad = 100,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,estocada,estus,corte],
  sprite = ["Soul256.png","Soul_B256.png"],
  offsetY = 7,
  tipo = normal
@@ -153,7 +159,7 @@ class Puff inherits Criatura
  vidaMax = 140, vida = vidaMax,
  energiaMax = 330, energia = energiaMax,
  velocidad = 65,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,tsunami,diluvio,pistolaDeBurbujas],
  sprite = ["Puff256.png","Puff_B256.png"],
  offsetY = 9,
  tipo = agua
@@ -164,7 +170,7 @@ class Combust inherits Criatura
  vidaMax = 160, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
  velocidad = 75,
- movimientos = [placaje,calentar,placaje,placaje],
+ movimientos = [placaje,llamarada,concentrarTemperatura,pulverizar],
  sprite = ["Combust256.png","Combust_B256.png"],
  offsetY = 5,
  tipo = fuego
@@ -175,7 +181,7 @@ class Leefo inherits Criatura
  vidaMax = 150, vida = vidaMax,
  energiaMax = 300, energia = energiaMax,
  velocidad = 65,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,corteDeHojas,rayoSolar,enredar],
  sprite = ["Leefo256.png","Leefo_B256.png"],
  offsetY = 7,
  tipo = planta
@@ -186,7 +192,7 @@ class Ouroboros inherits Criatura
  vidaMax = 140, vida = vidaMax,
  energiaMax = 350, energia = energiaMax,
  velocidad = 70,
- movimientos = [placaje,placaje,placaje,placaje],
+ movimientos = [placaje,renacer,mordida,latigazo],
  sprite = ["Ouroboros256.png","Ouroboros_B256.png"],
  offsetY = 4,
  tipo = normal
