@@ -23,12 +23,11 @@ class Ataque inherits Movimiento {
     }
 }
 
-class Curacion inherits Movimiento {
-    
+class Curacion inherits Movimiento(tipo = curacion) {
     override method accion(emisor,receptor){
         emisor.restarEnergia(costo)
         emisor.sacarVida(-poder)
-        return 1
+        return if(self.aciertaAtaque()) 1 else 0
     }
 }
 
@@ -68,8 +67,7 @@ const concentrarTemperatura = new Curacion(
     nombre = "Concentrar Temperatura",
     costo = 80,
     poder = 80,
-    precision = 100,
-    tipo = fuego
+    precision = 100
 )
 
 const pulverizar = new Ataque(
@@ -108,8 +106,7 @@ const condensar = new Curacion(
     nombre = "Condensar",
     costo = 80,
     poder = 80,
-    precision = 100,
-    tipo = agua
+    precision = 100
 )
 
 const pistolaDeBurbujas = new Ataque(
@@ -148,8 +145,7 @@ const germinar = new Curacion(
     nombre = "Germinar",
     costo = 50,
     poder = 80,
-    precision = 75,
-    tipo = planta
+    precision = 75
 )
 
 
@@ -205,8 +201,7 @@ const estus = new Curacion(
     nombre = "Estus",
     costo = 150,
     poder = 150,
-    precision = 100,
-    tipo = normal
+    precision = 100
 )
 
 const corte = new Ataque(
@@ -221,8 +216,7 @@ const renacer = new Curacion(
     nombre = "Renacer",
     costo = 200,
     poder = 140,
-    precision = 100,
-    tipo = normal
+    precision = 100
 )
 
 const mordida = new Ataque(

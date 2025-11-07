@@ -6,7 +6,7 @@ import clases.gestorPantallas.gestorPantallas
 
 program Game {
 	//Configuración del juego
-	game.title("Game")
+	game.title("Crauters")
 	game.height(96)
 	game.width(144)
 	game.cellSize(8)

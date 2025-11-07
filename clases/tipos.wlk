@@ -65,3 +65,11 @@ const planta = new Tipo(
   ventajas = [agua],
   desventajas = [fuego]
 )
+
+//Solo para movimiento de tipo Curacion
+const curacion = new Tipo(
+  nombre = "Curacion",
+  imagen = "",
+  ventajas = [],
+  desventajas = []
+)
